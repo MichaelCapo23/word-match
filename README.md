@@ -15,9 +15,9 @@
 - Mystery Requirement - Coming Wednesday morning
 
 ### Members
-- Yulia Chekan
-- Marie Terrado
-- Christine Than
+- Michael Capobianco
+- Cy Bae
+- Erick Brownfield
 
 ### Judging criteria
 - Intiutiveness / Ease of Use

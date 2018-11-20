@@ -8,8 +8,11 @@
 .cell {
     height: 60px;
     /*width: 30px;*/
-    background-color: black;
-    border: 1px solid white;
+    /*background-color: black;*/
+    border: 1px solid black;
+    color: black;
+    font-size: 30px;
+    text-align: center;
 }
 
 body {

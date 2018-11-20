@@ -1,60 +1,43 @@
-/*div{*/
-    /*height: 30px;*/
-    /*width: 30px;*/
-    /*background-color: black;*/
-    /*border: 1px solid white;*/
-/*}*/
-
-.cell {
-    height: 60px;
-    /*width: 30px;*/
-    /*background-color: black;*/
-    border: 1px solid black;
-    color: black;
-    font-size: 30px;
-    text-align: center;
-}
-
 body {
     margin: 0px;
-    height: 100vh;
-    width: 100vw;
-    font-size: 0px;
 }
-
+.overallContainer {
+    height: 100vh;
+    width: 100%;
+}
 .header {
     height: 10vh;
     width: 100%;
-    border: black solid 1px;
 }
-
-.containerWrapper {
-    vertical-align: top;
-    /*position: relative;*/
-    display: inline-block;
-    width: 59%;
-    height: 76%;
+.row {
+    margin: 0;
 }
-
-.boardContainer {
-    margin: auto;
-    display: grid;
-    grid-template-columns: repeat(10,1fr);
-    width: 100%;
-}
-
 .wordsArrContainer {
-    vertical-align: top;
-    display: inline-block;
-    height: 90%;
-    width: 20%;
-    background-color: #007BFf;
+    height: 90vh;
 }
-
+.containerWrapper {
+    height: 90vh;
+    position: relative;
+}
+.boardContainer {
+    height: 80vmin;
+    width: 80vmin;
+    font-size: 0;
+    position: absolute;
+    left:0; right:0;
+    top:0; bottom:0;
+    margin:auto;
+    max-width:100%;
+    max-height:100%;
+    overflow:auto;
+}
 .statsContainer {
-    height: 90%;
-    width: 20%;
-    border: #007BFf solid 1px;
+    height: 90vh;
+}
+.cell {
+    height: 10%;
+    width: 10%;
+    font-size: 1rem;
+    border: white solid 1px;
     display: inline-block;
-    background-color: #007BFf;
 }

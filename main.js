@@ -11,7 +11,9 @@ function dummyBoard() {
 function createDomBoard(board) {
     board.forEach((row, y) => {
         row.forEach((value, x) => {
-            const cell = $('<div>').addClass('' + y + x).addClass("cell");
+            const cell = $('<div>', {
+                'class': `${'' + y + x} cell teal lighten-4`
+            });
             $('.boardContainer').append(cell);
         })
     })

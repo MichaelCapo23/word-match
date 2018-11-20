@@ -11,7 +11,6 @@ $(document).ready(startApp);
 
 function startApp() {
     createDomBoard(dummyBoard());
-    // addWordToBoard();
     addClickHandlers();
 }
 
@@ -23,18 +22,15 @@ function createDomBoard(board) {
     board.forEach((row, y) => {
         row.forEach((value, x) => {
             const cell = $('<div>', {
-                'class': `${'' + y + x} cell teal lighten-4`
-            });
+                'class': `${'' + y + x} cell`
+            }).append($('<h5>',{
+                text: `${Math.floor(Math.random() * 10)}`,
+                'class' : 'cellText'  //generates random number for testing
+            }));
             $('.boardContainer').append(cell);
         })
     })
 }
-
-// function addWordToBoard() {
-//     for (var i = 0; i < gameState.wordArr[0].length; i++) {
-//         $(".cell." + 0 + i).text(gameState.wordArr[0][i]);
-//     }
-// }
 
 function addClickHandlers() {
     $(".containerWrapper").on("click", ".cell", clickHandlerFunction);

@@ -1,9 +1,9 @@
 var gameState = {
     firstClick: null,
-    classRowFirst : null,
-    classColFirst : null,
+    classRowFirst: null,
+    classColFirst: null,
     secondClick: null,
-    wordString: null,
+    wordString: "",
     wordArr: ['length', "booth", "wild", "seat"]
 };
 
@@ -65,33 +65,110 @@ function clickHandlerFunction() {
         console.log("ColSecond: ", classColSecond);
         console.log(gameState.secondClick);
         removeClickHandlers();
-        if(isValidMove(gameState.classRowFirst, classRowSecond, gameState.classColFirst, classColSecond)) {
-            // if() {
-            // }
-            console.log("valid move");
+        if (isValidMove(gameState.classRowFirst, classRowSecond, gameState.classColFirst, classColSecond)) {
+            if (classRowSecond < gameState.classRowFirst && classColSecond > gameState.classColFirst) {
+                northEast(gameState.classRowFirst, classRowSecond, gameState.classColFirst, classColSecond);
+            } else if (classRowSecond === gameState.classRowFirst && classColSecond > gameState.classColFirst) {
+                east(gameState.classRowFirst, classRowSecond, gameState.classColFirst, classColSecond);
+            } else if(classRowSecond > gameState.classRowFirst && classColSecond > gameState.classColFirst) {
+                southEast(gameState.classRowFirst, classRowSecond, gameState.classColFirst, classColSecond);
+            } else if(classRowSecond > gameState.classRowFirst && classColSecond === gameState.classColFirst) {
+                south(gameState.classRowFirst, classRowSecond, gameState.classColFirst, classColSecond);
+            } else if(classRowSecond > gameState.classRowFirst && classColSecond < gameState.classColFirst) {
+                southWest(gameState.classRowFirst, classRowSecond, gameState.classColFirst, classColSecond);
+            } else if(classRowSecond === gameState.classRowFirst && classColSecond < gameState.classColFirst){
+                 west(gameState.classRowFirst, classRowSecond, gameState.classColFirst, classColSecond);
+            } else if(classRowSecond < gameState.classRowFirst && classColSecond < gameState.classColFirst) {
+                 northwest(gameState.classRowFirst, classRowSecond, gameState.classColFirst, classColSecond);
+            } else if(classRowSecond < gameState.classRowFirst && classColSecond === gameState.classColFirst) {
+                 north(gameState.classRowFirst, classRowSecond, gameState.classColFirst, classColSecond);
+            }
         }
-        //
-        //
-        // }
     }
-
 }
 
-function isValidMove(row1, row2, col1, col2 ) {
+function isValidMove(row1, row2, col1, col2) {
     var rowDiff = Math.abs(row2 - row1);
     var colDiff = Math.abs(col2 - col1);
-    if(colDiff === 0 && rowDiff === 0) {
+    if (colDiff === 0 && rowDiff === 0) {
         return false;
     }
-    else if(rowDiff === colDiff) {
+    else if (rowDiff === colDiff) {
         console.log("True");
         return true;
-    } else if(colDiff === 0) {
+    } else if (colDiff === 0) {
         console.log("True");
         return true;
-    } else if(rowDiff === 0) {
+    } else if (rowDiff === 0) {
         console.log("True");
         return true;
     }
     return false;
 }
+
+function northEast(row1, row2, col1, col2) {
+    var colCount = col1;
+    var rowCount = row1;
+    var len = Math.abs(row2 - row1);
+    for(var i = 0; i <= len; i++) {
+        gameState.wordString += $(".cell." + rowCount + colCount);
+        rowCount--;
+        colCount++;
+    }
+    console.log(gameState.wordString);
+}
+
+function east(row1, row2, col1, col2) {
+    var word = "";
+    var colCount = col1;
+    var rowCount = row1;
+    var len = Math.abs(col2 - col1);
+    for(var i = 0; i <= len; i++) {
+        gameState.wordString += $(".cell." + rowCount + colCount).text();   //.find(".cellText").text();
+        console.log(".cell." + rowCount + colCount);
+        colCount++;
+    }
+    console.log(gameState.wordString);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

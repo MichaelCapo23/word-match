@@ -17,7 +17,7 @@ function createDomBoard(board) {
             const cell = $('<div>', {
                 'class': `${'' + y + x} cell`
             }).append($('<h5>', {
-                'class': 'cellText'  //generates random number for testing
+                'class': 'cellText'
             }));
             $('.boardContainer').append(cell);
         })

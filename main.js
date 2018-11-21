@@ -17,6 +17,7 @@ function startApp() {
     addClickHandlers();
     populateWords();
     canvasSetup();
+}
 
 function dummyBoard() {
     return Array(10).fill(0).map(row => Array(10).fill(0));
@@ -192,6 +193,6 @@ function isWordMatch() {
 function matchedWordsLeft() {
     gameState.wordsLeftToMatch--;
     if (gameState.wordsLeftToMatch === 0) {
-        console.log("winning")
+        console.log("winning");
     }
 }

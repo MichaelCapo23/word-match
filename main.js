@@ -53,6 +53,29 @@ function populateWords() {
         }));
     }
 
+    const testArray = [ [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ],
+    [ 0, 'w', 'h', 'e', 'a', 't', 0, 0, 0, 0 ],
+    [ 0, 0, 'e', 0, 0, 0, 0, 0, 0, 0 ],
+    [ 'g', 'n', 'o', 's', 't', 'i', 'c', 0, 0, 0 ],
+    [ 0, 0, 0, 0, 'h', 'r', 'a', 'i', 'n', 'y' ],
+    [ 0, 0, 0, 0, 'i', 'i', 0, 0, 0, 0 ],
+    [ 0, 0, 0, 'c', 0, 0, 'r', 0, 0, 0 ],
+    [ 0, 0, 'k', 0, 0, 0, 0, 'e', 0, 0 ],
+    [ 0, 'e', 0, 0, 0, 0, 0, 0, 0, 0 ],
+    [ 'd', 0, 0, 0, 0, 0, 0, 0, 0, 0 ] ];
+    populateBoard(testArray);
+}
+
+function populateBoard(nestedArray){
+    for (var i = 0; i < 10; i++){
+        for (var j = 0; j < 10; j++){
+            var coordinate = '.' + i + j;
+            $(coordinate).find('.cellText').text(nestedArray[i][j]);
+            if (isNaN(nestedArray[i][j])){
+                $(coordinate).css('background-color', 'grey');
+            }
+        }
+    }
 }
 
 function addClickHandlers() {

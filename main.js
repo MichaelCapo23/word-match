@@ -105,15 +105,27 @@ function isValidMove(row1, row2, col1, col2) {
 }
 
 function canvasSetup() {
-    // var width = 10 * $('.cell').width();
-    // var height = 10 *$('.cell').height();
     var percent = '100%';
+    var cellWidth = $('.cell').width();
+    console.log(cellWidth);
 
     $(`<canvas>`, {
-        'class': 'canvas'
-    }).css('width', percent).css('height', percent).prependTo('.boardContainer');
+        'class': 'canvas',
+        'id': 'canvas'
+    }).css({
+        'width': percent,
+        'height': percent,
+        'z-index': 1
+    }).prependTo('.boardContainer');
 
+    let canvasElement = $('.canvas')[0];
+    let context = canvasElement.getContext('2d');
 
-    // console.log('width: ', width);
-    // console.log('height:', height);
+    context.strokeStyle = `rgb(68, 127, 221, 0.5)`;
+    context.lineCap = "round";
+    context.lineWidth = 12;
+    context.beginPath();
+    context.moveTo(15, 8);
+    context.lineTo(15, 8 + cellWidth * 2.20);
+    context.stroke();
 }

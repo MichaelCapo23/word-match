@@ -5,6 +5,8 @@ $(document).ready(startApp);
  */
 function startApp() {
   addStartButtonHandler();
+  M.AutoInit();
+  $('#gameWon a').click(reset);
 }
 
 /**
@@ -14,7 +16,7 @@ function start() {
   reset();
   $('.resetButton').click(reset);
   $('.wordsCard').addClass('z-depth-2');
-  $('.startButton').removeClass('pulse')
+  $('.startButton').removeClass('pulse');
 }
 
 /**
@@ -188,7 +190,7 @@ function drawLine(coordinate1, coordinate2){
     let endX = 15 + parseInt(coordinate2.x) * 30;
     let endY = 7.5 + parseInt(coordinate2.y) * 15;
 
-    context.strokeStyle = `rgb(68, 127, 221, 0.5)`;
+    context.strokeStyle = 'rgb(119, 202, 194, 0.4)';
     context.lineCap = "round";
     context.lineWidth = 12;
     context.beginPath();
@@ -224,7 +226,10 @@ function isWordMatch() {
 function matchedWordsLeft() {
     gameState.wordsLeftToMatch--;
     if (gameState.wordsLeftToMatch === 0) {
-        console.log("winning");
+        gameWon();
     }
 }
 
+function gameWon() {
+    $('.modal').modal('open');
+}

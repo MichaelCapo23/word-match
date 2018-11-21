@@ -6,18 +6,16 @@ var gameState = {
     classRowSecond: null,
     secondClick: null,
     wordString: "",
-    wordArr: [
-      'weshire',
-      'wheat',
-      'munky',
-      'session',
-      'rainy',
-      'active',
-      'gnostic',
-      'chester',
-      'rage',
-      'cricked',
-    ],
+  wordArr: ['hole',
+    'vocalic',
+    'menses',
+    'syndets',
+    'dagga',
+    'poverty',
+    'unpaid',
+    'mimmest',
+    'hastate',
+    'valete']
 };
 
 $(document).ready(startApp);
@@ -65,16 +63,16 @@ function populateWords() {
     }
 
   const testArray = 
-    [['y', 'e', 'r', 'i', 'h', 's', 'e', 'w', 0, 'c'],
-      [0, 'n', 'a', 'c', 'h', 'e', 's', 't', 'e', 'r'],
-      [0, 0, 'i', 'c', 0, 's', 0, 0, 'a', 'i'],
-      ['w', 'h', 'e', 'a', 't', 's', 0, 'g', 0, 'c'],
-      [0, 0, 0, 'y', 'r', 'i', 'e', 0, 0, 'k'],
-      [0, 0, 0, 0, 'k', 'o', 'v', 0, 0, 'e'],
-      ['c', 'i', 't', 's', 'o', 'n', 'g', 'e', 0, 'd'],
-      [0, 0, 0, 0, 0, 0, 'u', 0, 0, 0],
-      [0, 0, 0, 0, 0, 0, 0, 'm', 0, 0],
-      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]]
+    [['s', 0, 0, 0, 0, 0, 0, 'e', 0, 0],
+      [0, 'e', 0, 0, 'y', 0, 0, 't', 0, 0],
+      [0, 0, 's', 'u', 't', 'm', 0, 'a', 0, 'c'],
+      [0, 0, 0, 'n', 'r', 'i', 0, 't', 0, 'i'],
+      [0, 0, 0, 'p', 'e', 'm', 0, 's', 'd', 'l'],
+      [0, 0, 0, 'a', 'v', 'm', 0, 'a', 'a', 'a'],
+      [0, 0, 0, 'i', 'o', 'e', 0, 'h', 'g', 'c'],
+      [0, 0, 0, 'd', 'p', 's', 0, 'o', 'g', 'o'],
+      [0, 0, 0, 0, 'e', 't', 'e', 'l', 'a', 'v'],
+      [0, 0, 0, 's', 'y', 'n', 'd', 'e', 't', 's']]
 
   populateBoard(testArray);
 }

@@ -2,11 +2,11 @@ var gameState = {
     firstClick: null,
     classRowFirst: null,
     classColFirst: null,
-    classColSecond : null,
-    classRowSecond : null,
+    classColSecond: null,
+    classRowSecond: null,
     secondClick: null,
     wordString: "",
-    wordArr: ['length', "booth", "wild", "seat"]
+    wordArr: ['length', "546", "wild", "312"]
 };
 
 $(document).ready(startApp);
@@ -15,6 +15,13 @@ function startApp() {
     createDomBoard(dummyBoard());
     addClickHandlers();
     populateWords();
+    addWordToBoard()
+}
+
+function addWordToBoard() {
+    for (var i = 0; i < gameState.wordArr[0].length; i++) {
+        $(".cell." + 0 + i).find(".cellText").text(gameState.wordArr[0][i]);
+    }
 }
 
 function dummyBoard() {
@@ -26,9 +33,9 @@ function createDomBoard(board) {
         row.forEach((value, x) => {
             const cell = $('<div>', {
                 'class': `${'' + y + x} cell`
-            }).append($('<h5>',{
+            }).append($('<h5>', {
                 text: `${Math.floor(Math.random() * 10)}`,
-                'class' : 'cellText'  //generates random number for testing
+                'class': 'cellText'  //generates random number for testing
             }));
             $('.boardContainer').append(cell);
         })
@@ -38,11 +45,10 @@ function createDomBoard(board) {
 //generates 10 words, puts it in gameState wordArr, populats the left
 //side banner, and calls the dynamic board creation
 function populateWords() {
-    gameState.wordsArr = generateWords();
-
-    for (let index = 0; index < gameState.wordsArr.length; index++){
-        $('.wordsArrContainer').append($('<h5>',{
-            text: gameState.wordsArr[index],
+    // gameState.wordArr = generateWords();
+    for (let index = 0; index < gameState.wordArr.length; index++) {
+        $('.wordsArrContainer').append($('<h5>', {
+            text: gameState.wordArr[index],
             'class': 'center-align'
         }));
     }
@@ -103,6 +109,7 @@ function clickHandlerFunction() {
         removeClickHandlers();
         if (isValidMove(gameState.classRowFirst, gameState.classRowSecond, gameState.classColFirst, gameState.classColSecond)) {
             determineDirection(gameState.classRowFirst, gameState.classRowSecond, gameState.classColFirst, gameState.classColSecond);
+            compareSelectedToWordArr();
         }
     }
 }
@@ -124,4 +131,38 @@ function isValidMove(row1, row2, col1, col2) {
         return true;
     }
     return false;
+}
+
+function compareSelectedToWordArr() {
+    var wordMatched = false;
+    for (var i = 0; i < gameState.wordArr.length - 1; i++) {
+        var mathcingLettersNum = 0;
+        for (var j = 0; j < gameState.wordString.length - 1; j++) {
+            if (gameState.wordString[j] === gameState.wordArr[i][j]) {
+                console.log("same char at " + i);
+                mathcingLettersNum++;
+                if (mathcingLettersNum === gameState.wordString.length - 1) {
+                    wordMatched = true;
+                    return wordMatched
+                }
+            }
+        }
+    }
+    if(!wordMatched) {
+     for (var word = gameState.wordArr.length - 1; word >= 0; word--) {
+            mathcingLettersNum = 0;
+            letterCounter = 0;
+            for (var index = gameState.wordString.length - 1; index >= 0; index--) {
+                if (gameState.wordString[index] === gameState.wordArr[word][letterCounter]) {
+                    console.log("same char at " + word);
+                    letterCounter++;
+                    mathcingLettersNum++;
+                    if (mathcingLettersNum === gameState.wordString.length-1) {
+                        wordMatched = true;
+                        return wordMatched;
+                    }
+                }
+            }
+        }
+    }
 }

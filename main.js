@@ -6,7 +6,18 @@ var gameState = {
     classRowSecond: null,
     secondClick: null,
     wordString: "",
-    wordArr: ['length', "546", "wild", "312"]
+    wordArr: [
+      'weshire',
+      'wheat',
+      'munky',
+      'session',
+      'rainy',
+      'active',
+      'gnostic',
+      'chester',
+      'rage',
+      'cricked',
+    ],
 };
 
 $(document).ready(startApp);
@@ -15,7 +26,7 @@ function startApp() {
     createDomBoard(dummyBoard());
     addClickHandlers();
     populateWords();
-    addWordToBoard()
+    // addWordToBoard()
 }
 
 function addWordToBoard() {
@@ -53,17 +64,19 @@ function populateWords() {
         }));
     }
 
-    const testArray = [ [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ],
-    [ 0, 'w', 'h', 'e', 'a', 't', 0, 0, 0, 0 ],
-    [ 0, 0, 'e', 0, 0, 0, 0, 0, 0, 0 ],
-    [ 'g', 'n', 'o', 's', 't', 'i', 'c', 0, 0, 0 ],
-    [ 0, 0, 0, 0, 'h', 'r', 'a', 'i', 'n', 'y' ],
-    [ 0, 0, 0, 0, 'i', 'i', 0, 0, 0, 0 ],
-    [ 0, 0, 0, 'c', 0, 0, 'r', 0, 0, 0 ],
-    [ 0, 0, 'k', 0, 0, 0, 0, 'e', 0, 0 ],
-    [ 0, 'e', 0, 0, 0, 0, 0, 0, 0, 0 ],
-    [ 'd', 0, 0, 0, 0, 0, 0, 0, 0, 0 ] ];
-    populateBoard(testArray);
+  const testArray = 
+    [[0, 'c', 'y', 'n', 'i', 'a', 'r', 'n', 0, 0],
+      [0, 0, 'i', 0, 0, 'e', 'o', 'a', 0, 0],
+      ['e', 'e', 0, 't', 't', 'i', 0, 0, 'g', 'd'],
+      ['v', 'r', 0, 's', 's', 0, 'y', 0, 0, 'e'],
+      ['i', 'i', 'e', 's', 0, 'o', 'k', 0, 0, 'k'],
+      ['t', 'h', 'e', 0, 0, 0, 'n', 0, 0, 'c'],
+      ['c', 's', 0, 0, 0, 0, 'u', 'g', 0, 'i'],
+      ['a', 'e', 0, 0, 0, 0, 'm', 0, 0, 'r'],
+      [0, 'w', 'h', 'e', 'a', 't', 0, 0, 0, 'c'],
+      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]]
+
+  populateBoard(testArray);
 }
 
 function populateBoard(nestedArray){

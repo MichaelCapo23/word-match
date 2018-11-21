@@ -1,5 +1,5 @@
 const words = [
-  'weshire',
+  'weshire', 
   'wheat',
   'munky',
   'session',
@@ -20,6 +20,10 @@ function getRandomWords() {
   return words;
 }
 
+/**
+ * Return array of words sorted from longest to shortest
+ * @param {array} words 
+ */
 function sortWordsByLength(words) {
   const sortedWords = words.slice(0);
 
@@ -27,8 +31,12 @@ function sortWordsByLength(words) {
   return sortedWords;
 }
 
-function createBoard() {
-  return Array(10).fill(0).map(row => Array(10).fill(0));
+/**
+ * 
+ * @param {number} length 
+ */
+function createBoard(length) {
+  return Array(length).fill(0).map(row => Array(length).fill(0));
 }
 
 function getRandomCoordinate() {
@@ -83,10 +91,11 @@ function isWordInbounds(coordinate, direction, word) {
 }
 
 function getInboundsVector(word) {
-  const coordinate = getRandomCoordinate(config.length);
+  let coordinate = getRandomCoordinate(config.length);
   let direction = getRandomDirection();
 
   while (!isWordInbounds(coordinate, direction, word)) {
+    coordinate = getRandomCoordinate(config.length);
     direction = getRandomDirection();
   }
 
@@ -99,7 +108,7 @@ function canPlaceWord(coordinate, direction, word, board) {
   let newCoordinate = coordinate;
 
   for (let i = 0; i < word.length; i++) {
-    if (board[newCoordinate.y][newCoordinate.x] && board[newCoordinate.y][newCoordinate.x] !== word[i]) {
+    if (board[newCoordinate.y][newCoordinate.x] !== 0 && board[newCoordinate.y][newCoordinate.x] !== word[i]) {
       return false;
     }
 
@@ -181,37 +190,39 @@ function getValidWordVector(word, board, directory) {
 }
 
 function createDynamicBoard() {
-  const board = createBoard();
+  const board = createBoard(config.length);
   const directory = {};
   const words = sortWordsByLength(getRandomWords());
-  
-  for (let i = 0; i < words.length; i++) {
-    const word = words[i];
+  const firstWord = words.shift();
+  let attempts = 5;
+  let times = 0;
 
-    // if first word, place anywhere inbounds
-    if (i === 0) {
-      const vector = getInboundsVector(word);
 
-      placeWordAndSaveCoordinates(vector, word, board, directory);
-      words.splice(i, 1);
-    // if not first word, connect to placed words
-    } else {
+  // if first word, place anywhere inbounds
+  const firstWordVector = getInboundsVector(firstWord);
+  placeWordAndSaveCoordinates(firstWordVector, firstWord, board, directory);
+
+  // if not first word, connect to placed words
+  while (words && attempts) {
+    for (let i = 0; i < words.length; i++) {
+      const word = words[i];
       const validWordVector = getValidWordVector(word, board, directory);
 
       if (validWordVector) {
         placeWordAndSaveCoordinates(validWordVector, word, board, directory);
-
         words.splice(i, 1);
       }
     }
+
+    attempts--;
   }
 
+  // fill empty space with random letters
   board.forEach((row, y) => {
     row.forEach((value, x) => {
-
+      if (!value) board[y][x] = getRandomLetter();
     })
   })
-  // if can't find, iterate again
   
   return board;
 }
@@ -224,46 +235,15 @@ function getRandomLetter() {
   return String.fromCharCode(getRandomNumber(97, 122));
 }
 
-const board = createDynamicBoard();
-
-console.log(board);
-
-//    y  x
-// board[3][3] = 'a';
-// board[4][3] = 't';
-// board[5][3] = 'a';
-// board[6][3] = 'r';
-// board[7][3] = 'i';
-
-// const direction = getValidVector({ y: 5, x: 3 }, 'bare', 1, board);
-// console.log(direction);
-
-// console.log(board);
-
-// create board
-// create directory
-// generate words
-// sort words by longest to shortest
-  // first word:
-    // get valid vector
-    // place word
-  // other words:
-    // iterate letters
-      // check if letter exists in directory 
-      // if exists, find valid vector that is in bounds
-        // if valid vector found
-          // see if word can be placed
-            // if yes, place word and save coordinates
-            // remove word from list
-        // if no valid vector, check next letter
-    // if no valid letter, check next word
-  // if no valid word, restart from first word
-// if can't create board with 3 iterations, generate new words
-
-// const board = createDynamicBoard();
-// console.log(board);
+for (let i = 0; i < ; i++) {
+  const board = createDynamicBoard();
+  console.log(board);
+}
 
 
+// function hanging
+// add jsDoc comments
+// if can't create board within attempts, get new words and retry
 
-// cleanup conditionals
+
 

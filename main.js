@@ -1,15 +1,3 @@
-var gameState = {
-    firstClick: null,
-    classRowFirst: null,
-    classColFirst: null,
-    classColSecond: null,
-    classRowSecond: null,
-    secondClick: null,
-    wordString: "",
-    wordArr: null,
-    wordsLeftToMatch: 10
-};
-
 $(document).ready(startApp);
 
 function startApp() {
@@ -29,7 +17,6 @@ function createDomBoard(board) {
             const cell = $('<div>', {
                 'class': `${'' + y + x} cell`
             }).append($('<h5>', {
-                text: `${Math.floor(Math.random() * 10)}`,
                 'class': 'cellText'  //generates random number for testing
             }));
             $('.boardContainer').append(cell);
@@ -40,26 +27,14 @@ function createDomBoard(board) {
 //generates 10 words, puts it in gameState wordArr, populats the left
 //side banner, and calls the dynamic board creation
 function populateWords() {
-    // gameState.wordArr = generateWords();
-    for (let index = 0; index < gameState.wordArr.length; index++) {
-        $('.wordsArrContainer').append($('<h5>', {
-            text: gameState.wordArr[index],
-            'class': `center-align ${gameState.wordArr[index]}`
+  populateBoard(createDynamicBoard());
+
+  for (let index = 0; index < gameState.wordArr.length; index++) {
+    $('.wordsArrContainer').append($('<h5>', {
+        text: gameState.wordArr[index],
+        'class': `center-align ${gameState.wordArr[index]}`
         }));
     }
-  const testArray = 
-    [['s', 0, 0, 0, 0, 0, 0, 'e', 0, 0],
-      [0, 'e', 0, 0, 'y', 0, 0, 't', 0, 0],
-      [0, 0, 's', 'u', 't', 'm', 0, 'a', 0, 'c'],
-      [0, 0, 0, 'n', 'r', 'i', 0, 't', 0, 'i'],
-      [0, 0, 0, 'p', 'e', 'm', 0, 's', 'd', 'l'],
-      [0, 0, 0, 'a', 'v', 'm', 0, 'a', 'a', 'a'],
-      [0, 0, 0, 'i', 'o', 'e', 0, 'h', 'g', 'c'],
-      [0, 0, 0, 'd', 'p', 's', 0, 'o', 'g', 'o'],
-      [0, 0, 0, 0, 'e', 't', 'e', 'l', 'a', 'v'],
-      [0, 0, 0, 's', 'y', 'n', 'd', 'e', 't', 's']]
-
-  populateBoard(testArray);
 }
 
 function populateBoard(nestedArray) {
@@ -67,9 +42,6 @@ function populateBoard(nestedArray) {
         for (var j = 0; j < 10; j++) {
             var coordinate = '.' + i + j;
             $(coordinate).find('.cellText').text(nestedArray[i][j]);
-            if (isNaN(nestedArray[i][j])) {
-                $(coordinate).css('background-color', 'grey');
-            }
         }
     }
 }
@@ -84,6 +56,7 @@ function removeClickHandlers() {
 }
 
 function clickHandlerFunction() {
+    console.log('works')
     if (gameState.firstClick === null) {
         gameState.firstClick = this;
         var overallClassFirst = gameState.firstClick.className;
@@ -136,7 +109,6 @@ function isValidMove(row1, row2, col1, col2) {
 function canvasSetup() {
     var percent = '100%';
     var cellWidth = $('.cell').width();
-    console.log(cellWidth);
 
     $(`<canvas>`, {
         'class': 'canvas',
@@ -144,11 +116,10 @@ function canvasSetup() {
     }).css({
         'width': percent,
         'height': percent,
-        'z-index': 1,
-        'border': 'solid 1px black'
+        'z-index': 1
     }).prependTo('.boardContainer');
     
-    drawLine({x: 7, y:8}, {x:2, y:3});
+    // drawLine({x: 7, y:8}, {x:2, y:3});
 }
 
 function drawLine(coordinate1, coordinate2){
@@ -196,3 +167,4 @@ function matchedWordsLeft() {
         console.log("winning");
     }
 }
+

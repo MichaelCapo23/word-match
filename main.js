@@ -6,16 +6,8 @@ var gameState = {
     classRowSecond: null,
     secondClick: null,
     wordString: "",
-  wordArr: ['hole',
-    'vocalic',
-    'menses',
-    'syndets',
-    'dagga',
-    'poverty',
-    'unpaid',
-    'mimmest',
-    'hastate',
-    'valete']
+    wordArr: null,
+    wordsLeftToMatch: 10
 };
 
 $(document).ready(startApp);
@@ -24,13 +16,7 @@ function startApp() {
     createDomBoard(dummyBoard());
     addClickHandlers();
     populateWords();
-    // addWordToBoard()
-}
-
-function addWordToBoard() {
-    for (var i = 0; i < gameState.wordArr[0].length; i++) {
-        $(".cell." + 0 + i).find(".cellText").text(gameState.wordArr[0][i]);
-    }
+    canvasSetup();
 }
 
 function dummyBoard() {
@@ -58,10 +44,9 @@ function populateWords() {
     for (let index = 0; index < gameState.wordArr.length; index++) {
         $('.wordsArrContainer').append($('<h5>', {
             text: gameState.wordArr[index],
-            'class': 'center-align'
+            'class': `center-align ${gameState.wordArr[index]}`
         }));
     }
-
   const testArray = 
     [['s', 0, 0, 0, 0, 0, 0, 'e', 0, 0],
       [0, 'e', 0, 0, 'y', 0, 0, 't', 0, 0],
@@ -77,12 +62,12 @@ function populateWords() {
   populateBoard(testArray);
 }
 
-function populateBoard(nestedArray){
-    for (var i = 0; i < 10; i++){
-        for (var j = 0; j < 10; j++){
+function populateBoard(nestedArray) {
+    for (var i = 0; i < 10; i++) {
+        for (var j = 0; j < 10; j++) {
             var coordinate = '.' + i + j;
             $(coordinate).find('.cellText').text(nestedArray[i][j]);
-            if (isNaN(nestedArray[i][j])){
+            if (isNaN(nestedArray[i][j])) {
                 $(coordinate).css('background-color', 'grey');
             }
         }
@@ -120,7 +105,11 @@ function clickHandlerFunction() {
         removeClickHandlers();
         if (isValidMove(gameState.classRowFirst, gameState.classRowSecond, gameState.classColFirst, gameState.classColSecond)) {
             determineDirection(gameState.classRowFirst, gameState.classRowSecond, gameState.classColFirst, gameState.classColSecond);
-            consoleshit(compareSelectedToWordArr());
+            if (isWordMatch()) {
+                matchedWordsLeft();
+                console.log("worked");
+                console.log(gameState.wordsLeftToMatch);
+            }
         }
     }
 }
@@ -144,44 +133,66 @@ function isValidMove(row1, row2, col1, col2) {
     return false;
 }
 
-function compareSelectedToWordArr() {
-    var wordMatched = false;
-    for (var i = 0; i < gameState.wordArr.length; i++) {
-        var mathcingLettersNum = 0;
-        for (var j = 0; j < gameState.wordString.length; j++) {
-            if (gameState.wordString[j] === gameState.wordArr[i][j]) {
-                console.log("same char at " + i);
-                mathcingLettersNum++;
-                if (mathcingLettersNum === gameState.wordArr[i].length) {
-                    wordMatched = true;
-                    return wordMatched
-                }
-            } else {
-                console.log("Not true");
-            }
-        }
-    }
-    if(!wordMatched) {
-     for (var word = gameState.wordArr.length-1; word >= 0; word--) {
-            mathcingLettersNum = 0;
-            letterCounter = 0;
-            for (var index = gameState.wordString.length-1; index >= 0; index--) {
-                if (gameState.wordString[index] === gameState.wordArr[word][letterCounter]) {
-                    console.log("same char at " + word);
-                    letterCounter++;
-                    mathcingLettersNum++;
-                    if (mathcingLettersNum === gameState.wordArr[word].length) {
-                        wordMatched = true;
-                        return wordMatched;
-                    }
-                } else {
-                    console.log("Not true");
-                }
-            }
-        }
-    }
+function canvasSetup() {
+    var percent = '100%';
+    var cellWidth = $('.cell').width();
+    console.log(cellWidth);
+
+    $(`<canvas>`, {
+        'class': 'canvas',
+        'id': 'canvas'
+    }).css({
+        'width': percent,
+        'height': percent,
+        'z-index': 1,
+        'border': 'solid 1px black'
+    }).prependTo('.boardContainer');
+    
+    drawLine({x: 7, y:8}, {x:2, y:3});
 }
 
-function consoleshit(tor) {
-    console.log(tor);
+function drawLine(coordinate1, coordinate2){
+    let canvasElement = $('.canvas')[0];
+    let context = canvasElement.getContext('2d');
+
+    let startX = 15 + coordinate1.x * 30;
+    let startY = 7.5 + coordinate1.y * 15;
+    let endX = 15 + coordinate2.x * 30;
+    let endY = 7.5 + coordinate2.y * 15;
+
+    context.strokeStyle = `rgb(68, 127, 221, 0.5)`;
+    context.lineCap = "round";
+    context.lineWidth = 12;
+    context.beginPath();
+    context.moveTo(startX, startY);
+    context.lineTo(endX, endY);
+    context.stroke();
+}
+  
+function isWordMatch() {
+    const normalIndex = gameState.wordArr.indexOf(gameState.wordString);
+    const reversedWord = gameState.wordString.split('').reverse();
+    const reverseString = reversedWord.join('');
+    const reverseIndex = gameState.wordArr.indexOf(reverseString);
+    if (normalIndex !== -1 || reverseIndex !== -1) {
+        const word = $(`.${gameState.wordString}`);
+        word.css('text-decoration', 'line-through red');
+        const reverseWord = $(`.${reverseString}`);
+        reverseWord.css('text-decoration', 'line-through red');
+        if (normalIndex !== -1) {
+            gameState.wordArr.splice(normalIndex, 1);
+            return true;
+        } else {
+            gameState.wordArr.splice(reverseIndex, 1);
+            return true;
+        }
+    }
+    return false;
+}
+
+function matchedWordsLeft() {
+    gameState.wordsLeftToMatch--;
+    if (gameState.wordsLeftToMatch === 0) {
+        console.log("winning");
+    }
 }

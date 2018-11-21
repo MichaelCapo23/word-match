@@ -15,6 +15,7 @@ function startApp() {
     createDomBoard(dummyBoard());
     addClickHandlers();
     populateWords();
+    canvasSetup();
 }
 
 function dummyBoard() {
@@ -101,4 +102,18 @@ function isValidMove(row1, row2, col1, col2) {
         return true;
     }
     return false;
+}
+
+function canvasSetup() {
+    // var width = 10 * $('.cell').width();
+    // var height = 10 *$('.cell').height();
+    var percent = '100%';
+
+    $(`<canvas>`, {
+        'class': 'canvas'
+    }).css('width', percent).css('height', percent).prependTo('.boardContainer');
+
+
+    // console.log('width: ', width);
+    // console.log('height:', height);
 }

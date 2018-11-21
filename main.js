@@ -1,10 +1,15 @@
 $(document).ready(startApp);
 
+const countdownTime = 3 * 60;
+let timer;
+
 /**
  * Adds initial button handlers
  */
 function startApp() {
   addStartButtonHandler();
+  const formattedTime = formatTime(countdownTime);
+  displayTime(formattedTime);
 }
 
 /**
@@ -14,7 +19,8 @@ function start() {
   reset();
   $('.resetButton').click(reset);
   $('.wordsCard').addClass('z-depth-2');
-  $('.startButton').removeClass('pulse')
+  $('.startButton').removeClass('pulse');
+  $('.startButton').off('click', start);
 }
 
 /**
@@ -34,6 +40,53 @@ function reset() {
   addClickHandlers();
   populateWords();
   canvasSetup();
+  stopCountdown(timer);
+  timer = countdown(countdownTime);
+}
+
+/**
+ * Updates time display
+ * @param {string} formattedTime 
+ */
+function displayTime(formattedTime) {
+  const display = $('.timerCard');
+  display.text(formattedTime);
+}
+
+/**
+ * Return time formatted in MM:SS
+ * @param {number} totalSeconds 
+ */
+function formatTime(totalSeconds) {
+  const minutes = totalSeconds / 60 | 0;
+  const seconds = totalSeconds % 60;
+  const displayMinutes = minutes < 10 ? '0' + minutes : minutes;
+  const displaySeconds = seconds < 10 ? '0' + seconds : seconds;
+  const formattedTime = displayMinutes + ':' + displaySeconds;
+
+  return formattedTime;
+}
+
+/**
+ * Counts down timer and updates display
+ * @param {seconds} totalSeconds 
+ */
+function countdown(totalSeconds) {
+  const formattedTime = formatTime(totalSeconds);
+  displayTime(formattedTime);
+
+  const timer = setInterval(() => {
+    if (--totalSeconds === 0) clearInterval(timer);
+
+    const formattedTime = formatTime(totalSeconds);
+    displayTime(formattedTime);
+  }, 1000)
+
+  return timer;
+}
+
+function stopCountdown(timer) {
+  clearInterval(timer);
 }
 
 function createEmptyBoard() {
@@ -81,7 +134,6 @@ function addClickHandlers() {
 
 function removeClickHandlers() {
     $(".containerWrapper").off("click", ".cell", clickHandlerFunction);
-    console.log("they're off");
 }
 
 function clickHandlerFunction() {
@@ -96,25 +148,17 @@ function clickHandlerFunction() {
         gameState.classRowFirst = overallClassFirst.slice(0, 1);
         var classColFirst = overallClassFirst.slice(0, 2);
         gameState.classColFirst = classColFirst.slice(1, 2);
-        console.log("Row: ", gameState.classRowFirst);
-        console.log("Col: ", gameState.classColFirst);
-        console.log(gameState.firstClick);
     } else {
         gameState.secondClick = this;
         var overallClassSecond = gameState.secondClick.className;
         gameState.classRowSecond = overallClassSecond.slice(0, 1);
         var classColSecond = overallClassSecond.slice(0, 2);
         gameState.classColSecond = classColSecond.slice(1, 2);
-        console.log("RowSecond: ", gameState.classRowSecond);
-        console.log("ColSecond: ", gameState.classColSecond);
-        console.log(gameState.secondClick);
         removeClickHandlers();
         if (isValidMove(gameState.classRowFirst, gameState.classRowSecond, gameState.classColFirst, gameState.classColSecond)) {
             determineDirection(gameState.classRowFirst, gameState.classRowSecond, gameState.classColFirst, gameState.classColSecond);
             if (isWordMatch()) {
                 matchedWordsLeft();
-                console.log("worked");
-                console.log(gameState.wordsLeftToMatch);
                 gameState.firstClick = null;
                 gameState.secondClick = null;
                 gameState.classRowFirst = null;
@@ -153,13 +197,10 @@ function isValidMove(row1, row2, col1, col2) {
         return false;
     }
     else if (rowDiff === colDiff) {
-        console.log("True");
         return true;
     } else if (colDiff === 0) {
-        console.log("True");
         return true;
     } else if (rowDiff === 0) {
-        console.log("True");
         return true;
     }
     return false;
@@ -213,7 +254,6 @@ function isWordMatch() {
             return true;
         } else {
             gameState.wordArr.splice(reverseIndex, 1);
-            console.log(gameState.classColSecond, gameState.classColSecond);
             drawLine({x: gameState.classColFirst, y: gameState.classRowFirst}, {x: gameState.classColSecond, y: gameState.classRowSecond});
             return true;
         }

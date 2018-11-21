@@ -56,3 +56,9 @@ h1, h5 {
     top: 50%;
     transform: translateY(-50%);
 }
+
+.canvas {
+    position: absolute;
+    width: 500px;
+    height: 500px;
+}

@@ -16,14 +16,7 @@ function startApp() {
     createDomBoard(dummyBoard());
     addClickHandlers();
     populateWords();
-    // addWordToBoard()
-}
-
-function addWordToBoard() {
-    for (var i = 0; i < gameState.wordArr[0].length; i++) {
-        $(".cell." + 0 + i).find(".cellText").text(gameState.wordArr[0][i]);
-    }
-}
+    canvasSetup();
 
 function dummyBoard() {
     return Array(10).fill(0).map(row => Array(10).fill(0));
@@ -139,7 +132,42 @@ function isValidMove(row1, row2, col1, col2) {
     return false;
 }
 
+function canvasSetup() {
+    var percent = '100%';
+    var cellWidth = $('.cell').width();
+    console.log(cellWidth);
 
+    $(`<canvas>`, {
+        'class': 'canvas',
+        'id': 'canvas'
+    }).css({
+        'width': percent,
+        'height': percent,
+        'z-index': 1,
+        'border': 'solid 1px black'
+    }).prependTo('.boardContainer');
+    
+    drawLine({x: 7, y:8}, {x:2, y:3});
+}
+
+function drawLine(coordinate1, coordinate2){
+    let canvasElement = $('.canvas')[0];
+    let context = canvasElement.getContext('2d');
+
+    let startX = 15 + coordinate1.x * 30;
+    let startY = 7.5 + coordinate1.y * 15;
+    let endX = 15 + coordinate2.x * 30;
+    let endY = 7.5 + coordinate2.y * 15;
+
+    context.strokeStyle = `rgb(68, 127, 221, 0.5)`;
+    context.lineCap = "round";
+    context.lineWidth = 12;
+    context.beginPath();
+    context.moveTo(startX, startY);
+    context.lineTo(endX, endY);
+    context.stroke();
+}
+  
 function isWordMatch() {
     const normalIndex = gameState.wordArr.indexOf(gameState.wordString);
     const reversedWord = gameState.wordString.split('').reverse();
@@ -167,20 +195,3 @@ function matchedWordsLeft() {
         console.log("winning")
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

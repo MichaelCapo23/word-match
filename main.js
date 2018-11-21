@@ -14,6 +14,7 @@ $(document).ready(startApp);
 function startApp() {
     createDomBoard(dummyBoard());
     addClickHandlers();
+    populateWords();
 }
 
 function dummyBoard() {
@@ -32,6 +33,20 @@ function createDomBoard(board) {
             $('.boardContainer').append(cell);
         })
     })
+}
+
+//generates 10 words, puts it in gameState wordArr, populats the left
+//side banner, and calls the dynamic board creation
+function populateWords() {
+    gameState.wordsArr = generateWords();
+
+    for (let index = 0; index < gameState.wordsArr.length; index++){
+        $('.wordsArrContainer').append($('<h5>',{
+            text: gameState.wordsArr[index],
+            'class': 'center-align'
+        }));
+    }
+    
 }
 
 function addClickHandlers() {
@@ -87,4 +102,3 @@ function isValidMove(row1, row2, col1, col2) {
     }
     return false;
 }
-

@@ -56,7 +56,7 @@ function removeClickHandlers() {
 }
 
 function clickHandlerFunction() {
-    console.log('works')
+    console.log('works');
     if (gameState.firstClick === null) {
         gameState.firstClick = this;
         var overallClassFirst = gameState.firstClick.className;
@@ -82,7 +82,33 @@ function clickHandlerFunction() {
                 matchedWordsLeft();
                 console.log("worked");
                 console.log(gameState.wordsLeftToMatch);
+                gameState.firstClick = null;
+                gameState.secondClick = null;
+                gameState.classRowFirst = null;
+                gameState.classColFirst = null;
+                gameState.classColSecond = null;
+                gameState.classRowSecond = null;
+                gameState.wordString = "";
+                addClickHandlers();
+            } else {
+                gameState.firstClick = null;
+                gameState.secondClick = null;
+                gameState.classRowFirst = null;
+                gameState.classColFirst = null;
+                gameState.classColSecond = null;
+                gameState.classRowSecond = null;
+                gameState.wordString = "";
+                addClickHandlers();
             }
+        } else {
+            gameState.firstClick = null;
+            gameState.secondClick = null;
+            gameState.classRowFirst = null;
+            gameState.classColFirst = null;
+            gameState.classColSecond = null;
+            gameState.classRowSecond = null;
+            gameState.wordString = "";
+            addClickHandlers();
         }
     }
 }
@@ -118,18 +144,16 @@ function canvasSetup() {
         'height': percent,
         'z-index': 1
     }).prependTo('.boardContainer');
-    
-    // drawLine({x: 7, y:8}, {x:2, y:3});
 }
 
 function drawLine(coordinate1, coordinate2){
     let canvasElement = $('.canvas')[0];
     let context = canvasElement.getContext('2d');
 
-    let startX = 15 + coordinate1.x * 30;
-    let startY = 7.5 + coordinate1.y * 15;
-    let endX = 15 + coordinate2.x * 30;
-    let endY = 7.5 + coordinate2.y * 15;
+    let startX = 15 + parseInt(coordinate1.x) * 30;
+    let startY = 7.5 + parseInt(coordinate1.y) * 15;
+    let endX = 15 + parseInt(coordinate2.x) * 30;
+    let endY = 7.5 + parseInt(coordinate2.y) * 15;
 
     context.strokeStyle = `rgb(68, 127, 221, 0.5)`;
     context.lineCap = "round";
@@ -152,9 +176,12 @@ function isWordMatch() {
         reverseWord.css('text-decoration', 'line-through red');
         if (normalIndex !== -1) {
             gameState.wordArr.splice(normalIndex, 1);
+            drawLine({x: gameState.classColFirst, y: gameState.classRowFirst}, {x: gameState.classColSecond, y: gameState.classRowSecond});
             return true;
         } else {
             gameState.wordArr.splice(reverseIndex, 1);
+            console.log(gameState.classColSecond, gameState.classColSecond);
+            drawLine({x: gameState.classColFirst, y: gameState.classRowFirst}, {x: gameState.classColSecond, y: gameState.classRowSecond});
             return true;
         }
     }

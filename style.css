@@ -1,6 +1,9 @@
 body {
     margin: 0px;
 }
+div {
+    user-select: none;
+}
 .overallContainer {
     height: 100vh;
     width: 100%;
@@ -9,6 +12,7 @@ body {
     height: 10vh;
     width: 100%;
     position: relative;
+    user-select: none;
 }
 .row {
     margin: 0;
@@ -16,6 +20,7 @@ body {
 
 .wordsWrapper {
   height: 90vh;
+  padding: 20%;
 }
 
 .containerWrapper {
@@ -34,7 +39,7 @@ body {
     max-height:100%;
     overflow:auto;
 }
-.statsContainer {
+.timerWrapper {
     height: 90vh;
 }
 .cell {
@@ -52,6 +57,10 @@ body {
 }
 h1, h5 {
     margin: 0;
+    user-select: none;
+}
+h1 {
+    font-weight: 300;
 }
 .title {
     position: relative;
@@ -68,4 +77,57 @@ h1, h5 {
     right: 4%;
     transform: translateY(-50%);
 }
+.wordsArrContainer > h5 {
+    margin-bottom: 2rem;
+}
+.wordsWrapper, .statsWrapper {
+    padding-top: 5%;
+}
 
+.wordsCard, .timerCard {
+    width: 100%;
+    border-radius: 20px;
+    position: relative;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.timerCard {
+    height: 20vh;
+}
+.wordsArrContainer h5:first-child {
+    padding-top: 2rem;
+}
+
+.wordsArrContainer h5:last-child {
+    padding-bottom: 2rem;
+}
+
+.cell:hover {
+    color: rgb(131, 226, 226);
+}
+
+.shakeAnimation {
+    animation: shake 0.82s cubic-bezier(.36,.07,.19,.97) both;
+    transform: translate3d(0, 0, 0);
+    backface-visibility: hidden;
+    perspective: 1000px;
+  }
+  
+  @keyframes shake {
+    10%, 90% {
+      transform: translate3d(-0.25px, 0, 0);
+    }
+    
+    20%, 80% {
+      transform: translate3d(1px, 0, 0);
+    }
+  
+    30%, 50%, 70% {
+      transform: translate3d(-2px, 0, 0);
+    }
+  
+    40%, 60% {
+      transform: translate3d(2px, 0, 0);
+    }
+  }

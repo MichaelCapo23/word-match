@@ -115,17 +115,27 @@ function canvasSetup() {
     }).css({
         'width': percent,
         'height': percent,
-        'z-index': 1
+        'z-index': 1,
+        'border': 'solid 1px black'
     }).prependTo('.boardContainer');
+    
+    drawLine({x: 7, y:8}, {x:2, y:3});
+}
 
+function drawLine(coordinate1, coordinate2){
     let canvasElement = $('.canvas')[0];
     let context = canvasElement.getContext('2d');
+
+    let startX = 15 + coordinate1.x * 30;
+    let startY = 7.5 + coordinate1.y * 15;
+    let endX = 15 + coordinate2.x * 30;
+    let endY = 7.5 + coordinate2.y * 15;
 
     context.strokeStyle = `rgb(68, 127, 221, 0.5)`;
     context.lineCap = "round";
     context.lineWidth = 12;
     context.beginPath();
-    context.moveTo(15, 8);
-    context.lineTo(15, 8 + cellWidth * 2.20);
+    context.moveTo(startX, startY);
+    context.lineTo(endX, endY);
     context.stroke();
 }

@@ -2,11 +2,22 @@ var gameState = {
     firstClick: null,
     classRowFirst: null,
     classColFirst: null,
-    classColSecond : null,
-    classRowSecond : null,
+    classColSecond: null,
+    classRowSecond: null,
     secondClick: null,
     wordString: "",
-    wordArr: ['length', "booth", "wild", "seat"]
+    wordArr: [
+      'weshire',
+      'wheat',
+      'munky',
+      'session',
+      'rainy',
+      'active',
+      'gnostic',
+      'chester',
+      'rage',
+      'cricked',
+    ],
 };
 
 $(document).ready(startApp);
@@ -16,7 +27,6 @@ function startApp() {
     addClickHandlers();
     populateWords();
     canvasSetup();
-}
 
 function dummyBoard() {
     return Array(10).fill(0).map(row => Array(10).fill(0));
@@ -27,9 +37,9 @@ function createDomBoard(board) {
         row.forEach((value, x) => {
             const cell = $('<div>', {
                 'class': `${'' + y + x} cell`
-            }).append($('<h5>',{
+            }).append($('<h5>', {
                 text: `${Math.floor(Math.random() * 10)}`,
-                'class' : 'cellText'  //generates random number for testing
+                'class': 'cellText'  //generates random number for testing
             }));
             $('.boardContainer').append(cell);
         })
@@ -39,15 +49,39 @@ function createDomBoard(board) {
 //generates 10 words, puts it in gameState wordArr, populats the left
 //side banner, and calls the dynamic board creation
 function populateWords() {
-    gameState.wordsArr = generateWords();
-
-    for (let index = 0; index < gameState.wordsArr.length; index++){
-        $('.wordsArrContainer').append($('<h5>',{
-            text: gameState.wordsArr[index],
+    // gameState.wordArr = generateWords();
+    for (let index = 0; index < gameState.wordArr.length; index++) {
+        $('.wordsArrContainer').append($('<h5>', {
+            text: gameState.wordArr[index],
             'class': 'center-align'
         }));
     }
-    
+
+  const testArray = 
+    [['y', 'e', 'r', 'i', 'h', 's', 'e', 'w', 0, 'c'],
+      [0, 'n', 'a', 'c', 'h', 'e', 's', 't', 'e', 'r'],
+      [0, 0, 'i', 'c', 0, 's', 0, 0, 'a', 'i'],
+      ['w', 'h', 'e', 'a', 't', 's', 0, 'g', 0, 'c'],
+      [0, 0, 0, 'y', 'r', 'i', 'e', 0, 0, 'k'],
+      [0, 0, 0, 0, 'k', 'o', 'v', 0, 0, 'e'],
+      ['c', 'i', 't', 's', 'o', 'n', 'g', 'e', 0, 'd'],
+      [0, 0, 0, 0, 0, 0, 'u', 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 'm', 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]]
+
+  populateBoard(testArray);
+}
+
+function populateBoard(nestedArray){
+    for (var i = 0; i < 10; i++){
+        for (var j = 0; j < 10; j++){
+            var coordinate = '.' + i + j;
+            $(coordinate).find('.cellText').text(nestedArray[i][j]);
+            if (isNaN(nestedArray[i][j])){
+                $(coordinate).css('background-color', 'grey');
+            }
+        }
+    }
 }
 
 function addClickHandlers() {
@@ -81,6 +115,7 @@ function clickHandlerFunction() {
         removeClickHandlers();
         if (isValidMove(gameState.classRowFirst, gameState.classRowSecond, gameState.classColFirst, gameState.classColSecond)) {
             determineDirection(gameState.classRowFirst, gameState.classRowSecond, gameState.classColFirst, gameState.classColSecond);
+            consoleshit(compareSelectedToWordArr());
         }
     }
 }

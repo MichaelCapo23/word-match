@@ -122,7 +122,7 @@ function clickHandlerFunction() {
         removeClickHandlers();
         if (isValidMove(gameState.classRowFirst, gameState.classRowSecond, gameState.classColFirst, gameState.classColSecond)) {
             determineDirection(gameState.classRowFirst, gameState.classRowSecond, gameState.classColFirst, gameState.classColSecond);
-            compareSelectedToWordArr();
+            consoleshit(compareSelectedToWordArr());
         }
     }
 }
@@ -148,34 +148,42 @@ function isValidMove(row1, row2, col1, col2) {
 
 function compareSelectedToWordArr() {
     var wordMatched = false;
-    for (var i = 0; i < gameState.wordArr.length - 1; i++) {
+    for (var i = 0; i < gameState.wordArr.length; i++) {
         var mathcingLettersNum = 0;
-        for (var j = 0; j < gameState.wordString.length - 1; j++) {
+        for (var j = 0; j < gameState.wordString.length; j++) {
             if (gameState.wordString[j] === gameState.wordArr[i][j]) {
                 console.log("same char at " + i);
                 mathcingLettersNum++;
-                if (mathcingLettersNum === gameState.wordString.length - 1) {
+                if (mathcingLettersNum === gameState.wordArr[i].length) {
                     wordMatched = true;
                     return wordMatched
                 }
+            } else {
+                console.log("Not true");
             }
         }
     }
     if(!wordMatched) {
-     for (var word = gameState.wordArr.length - 1; word >= 0; word--) {
+     for (var word = gameState.wordArr.length-1; word >= 0; word--) {
             mathcingLettersNum = 0;
             letterCounter = 0;
-            for (var index = gameState.wordString.length - 1; index >= 0; index--) {
+            for (var index = gameState.wordString.length-1; index >= 0; index--) {
                 if (gameState.wordString[index] === gameState.wordArr[word][letterCounter]) {
                     console.log("same char at " + word);
                     letterCounter++;
                     mathcingLettersNum++;
-                    if (mathcingLettersNum === gameState.wordString.length-1) {
+                    if (mathcingLettersNum === gameState.wordArr[word].length) {
                         wordMatched = true;
                         return wordMatched;
                     }
+                } else {
+                    console.log("Not true");
                 }
             }
         }
     }
+}
+
+function consoleshit(tor) {
+    console.log(tor);
 }

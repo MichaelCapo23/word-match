@@ -31,3 +31,102 @@ function determineDirection() {
         north(gameState.classRowFirst, gameState.classRowSecond, gameState.classColFirst, gameState.classColSecond);
     }
 }
+
+function northEast(row1, row2, col1, col2) {
+    var colCount = col1;
+    var rowCount = row1;
+    var len = Math.abs(row2 - row1);
+    for(var i = 0; i <= len; i++) {
+        gameState.wordString += $(".cell." + rowCount + colCount).text();//.find(".cellText").text();
+        rowCount--;
+        colCount++;
+    }
+    console.log(gameState.wordString);
+}
+
+function east(row1, row2, col1, col2) {
+    var colCount = col1;
+    var rowCount = row1;
+    var len = Math.abs(col2 - col1);
+    for(var i = 0; i <= len; i++) {
+        gameState.wordString += $(".cell." + rowCount + colCount).text();//.find(".cellText").text();
+        console.log(".cell." + rowCount + colCount);
+        colCount++;
+    }
+    console.log(gameState.wordString);
+}
+
+function southEast(row1, row2, col1, col2) {
+    var colCount = col1;
+    var rowCount = row1;
+    var len = Math.abs(row2 - row1);
+    for(var i = 0; i <= len; i++) {
+        gameState.wordString += $(".cell." + rowCount + colCount).text();//.find(".cellText").text();
+        console.log(".cell." + rowCount + colCount);
+        colCount++;
+        rowCount++;
+    }
+    console.log(gameState.wordString);
+}
+
+function south(row1, row2, col1, col2) {
+    var colCount = col1;
+    var rowCount = row1;
+    var len = Math.abs(row2 - row1);
+    for(var i = 0; i <= len; i++) {
+        gameState.wordString += $(".cell." + rowCount + colCount).text();//.find(".cellText").text();
+        console.log(".cell." + rowCount + colCount);
+        rowCount++;
+    }
+    console.log(gameState.wordString);
+}
+
+function southWest(row1, row2, col1, col2) {
+    var colCount = col1;
+    var rowCount = row1;
+    var len = Math.abs(col2 - col1);
+    for(var i = 0; i <= len; i++) {
+        gameState.wordString += $(".cell." + rowCount + colCount).text();//.find(".cellText").text();
+        console.log(".cell." + rowCount + colCount);
+        rowCount++;
+        colCount--;
+    }
+    console.log(gameState.wordString);
+}
+
+function west(row1, row2, col1, col2) {
+    var colCount = col1;
+    var rowCount = row1;
+    var len = Math.abs(col2 - col1);
+    for(var i = 0; i <= len; i++) {
+        gameState.wordString += $(".cell." + rowCount + colCount).text();//.find(".cellText").text();
+        console.log(".cell." + rowCount + colCount);
+        colCount--;
+    }
+    console.log(gameState.wordString);
+}
+
+function northwest(row1, row2, col1, col2) {
+    var colCount = col1;
+    var rowCount = row1;
+    var len = Math.abs(row2 - row1);
+    for(var i = 0; i <= len; i++) {
+        gameState.wordString += $(".cell." + rowCount + colCount).text();//.find(".cellText").text();
+        console.log(".cell." + rowCount + colCount);
+        colCount--;
+        rowCount--;
+    }
+    console.log(gameState.wordString);
+}
+
+function north(row1, row2, col1, col2) {
+    var colCount = col1;
+    var rowCount = row1;
+    var len = Math.abs(row2 - row1);
+    for(var i = 0; i <= len; i++) {
+        gameState.wordString += $(".cell." + rowCount + colCount).text();//.find(".cellText").text();
+        console.log(".cell." + rowCount + colCount);
+        rowCount--;
+    }
+    console.log(gameState.wordString);
+}

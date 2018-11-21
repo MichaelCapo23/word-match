@@ -8,6 +8,7 @@ body {
 .header {
     height: 10vh;
     width: 100%;
+    position: relative;
 }
 .row {
     margin: 0;
@@ -37,7 +38,6 @@ body {
 .cell {
     height: 10%;
     width: 10%;
-    border: white solid 1px;
     display: inline-block;
     background-color: white;
 }
@@ -56,8 +56,13 @@ h1, h5 {
     top: 50%;
     transform: translateY(-50%);
 }
-
 .canvas {
     position: absolute;
     pointer-events: none;
+}
+.buttonContainer {
+    position: absolute;
+    top: 50%;
+    right: 4%;
+    transform: translateY(-50%);
 }

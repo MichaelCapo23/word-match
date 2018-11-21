@@ -16,6 +16,9 @@ config = {
   directions: ['N', 'NE', 'E', 'SE', 'S', 'SW', 'W', 'NW'],
 }
 
+/**
+ * Return random words (dummy function)
+ */
 function getRandomWords() {
   return words;
 }
@@ -32,13 +35,16 @@ function sortWordsByLength(words) {
 }
 
 /**
- * 
+ * Creates empty board with 0's
  * @param {number} length 
  */
 function createBoard(length) {
   return Array(length).fill(0).map(row => Array(length).fill(0));
 }
 
+/**
+ * Returns a random coordinate
+ */
 function getRandomCoordinate() {
   const x = Math.random() * config.length | 0;
   const y = Math.random() * config.length | 0;
@@ -46,10 +52,17 @@ function getRandomCoordinate() {
   return { x, y };
 }
 
+/**
+ * Return a random direction
+ */
 function getRandomDirection() {
   return config.directions[Math.random() * config.directions.length | 0];
 }
 
+/**
+ * Return opposite direction
+ * @param {string} direction 
+ */
 function getOppositeDirection(direction) {
   const index = config.directions.indexOf(direction);
   const oppositeIndex = (index + 4) % config.directions.length;
@@ -57,6 +70,11 @@ function getOppositeDirection(direction) {
   return config.directions[oppositeIndex];
 }
 
+/**
+ * Return next coordinates based on coordinate and direction
+ * @param {object} coordinate 
+ * @param {string} direction 
+ */
 function getNextCoordinate(coordinate, direction) {
   const vectors = {
     'N':  () => ({ x: coordinate.x, y: coordinate.y - 1 }),
@@ -72,11 +90,21 @@ function getNextCoordinate(coordinate, direction) {
   return vectors[direction]();
 }
 
+/**
+ * Checks if coordinates are inside board
+ * @param {object} coordinate 
+ */
 function isCoordinateInbounds(coordinate) {
   return 0 <= coordinate.x && coordinate.x < config.length &&
          0 <= coordinate.y && coordinate.y < config.length;
 }
 
+/**
+ * Checks if word can be placed inside board 
+ * @param {object} coordinate 
+ * @param {string} direction 
+ * @param {string} word 
+ */
 function isWordInbounds(coordinate, direction, word) {
   let length = word.length;
   let newCoordinate = coordinate;
@@ -90,6 +118,10 @@ function isWordInbounds(coordinate, direction, word) {
   return true;
 }
 
+/**
+ * Return a valid coordinates and direction for word to be placed in board
+ * @param {string} word 
+ */
 function getInboundsVector(word) {
   let coordinate = getRandomCoordinate(config.length);
   let direction = getRandomDirection();
@@ -102,6 +134,13 @@ function getInboundsVector(word) {
   return { coordinate, direction };
 }
 
+/**
+ * Checks if a word within bounds can be placed without replacing existing letters
+ * @param {object} coordinate 
+ * @param {string} direction 
+ * @param {string} word 
+ * @param {array} board 
+ */
 function canPlaceWord(coordinate, direction, word, board) {
   if (!isWordInbounds(coordinate, direction, word)) return false;
 
@@ -118,6 +157,10 @@ function canPlaceWord(coordinate, direction, word, board) {
   return true;
 }
 
+/**
+ * Fisher-Yates shuffle - returns randomized array
+ * @param {array} array 
+ */
 function shuffle(array) {
   for (let i = array.length - 1; i > 0; i--) {
     const j = Math.random() * i | 0;
@@ -128,7 +171,13 @@ function shuffle(array) {
   return array;
 }
 
-// return direction and starting coordinate if possible, false if not
+/**
+ * Return direction and starting coordinate if possible, otherwise false
+ * @param {object} coordinate 
+ * @param {string} word 
+ * @param {number} letterPosition 
+ * @param {array} board 
+ */
 function getValidVector(coordinate, word, letterPosition, board) {
   const directions = shuffle(config.directions.slice(0));
 
@@ -152,6 +201,13 @@ function getValidVector(coordinate, word, letterPosition, board) {
   return false;
 }
 
+/**
+ * Places word on board and saves coordinates in directory
+ * @param {object} vector 
+ * @param {string} word 
+ * @param {array} board 
+ * @param {object} directory 
+ */
 function placeWordAndSaveCoordinates({coordinate, direction} = vector, word, board, directory) {
   let newCoordinate = coordinate;
   for (let i = 0; i < word.length; i++) {
@@ -167,7 +223,12 @@ function placeWordAndSaveCoordinates({coordinate, direction} = vector, word, boa
   }
 }
 
-// iterate over a word and look for valid starting vector(coordinate and direction) or false
+/**
+ * Returns a valid vector accounting overwriting letters, otherwise false
+ * @param {string} word 
+ * @param {array} board 
+ * @param {object} directory 
+ */
 function getValidWordVector(word, board, directory) {
   for (let i = 0; i < word.length; i++) {
     const letter = word[i];
@@ -189,6 +250,9 @@ function getValidWordVector(word, board, directory) {
   return false;
 }
 
+/**
+ * Creates a randomized board
+ */
 function createDynamicBoard() {
   const board = createBoard(config.length);
   const directory = {};
@@ -235,15 +299,8 @@ function getRandomLetter() {
   return String.fromCharCode(getRandomNumber(97, 122));
 }
 
-for (let i = 0; i < ; i++) {
-  const board = createDynamicBoard();
-  console.log(board);
-}
-
-
-// function hanging
-// add jsDoc comments
+// random words library
+// real random words function
 // if can't create board within attempts, get new words and retry
-
-
-
+// const board = createDynamicBoard();
+// console.log(board);

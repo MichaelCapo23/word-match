@@ -13,6 +13,8 @@ function startApp() {
 function start() {
   reset();
   $('.resetButton').click(reset);
+  $('.wordsCard').addClass('z-depth-2');
+  $('.startButton').removeClass('pulse')
 }
 
 /**
@@ -83,7 +85,11 @@ function removeClickHandlers() {
 }
 
 function clickHandlerFunction() {
-    console.log('works');
+    var elem = $(this);
+    elem.addClass('shakeAnimation');
+    setTimeout(function(){
+        elem.removeClass('shakeAnimation');
+    }, 820);
     if (gameState.firstClick === null) {
         gameState.firstClick = this;
         var overallClassFirst = gameState.firstClick.className;

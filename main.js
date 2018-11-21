@@ -2,6 +2,8 @@ var gameState = {
     firstClick: null,
     classRowFirst: null,
     classColFirst: null,
+    classColSecond : null,
+    classRowSecond : null,
     secondClick: null,
     wordString: "",
     wordArr: ['length', "booth", "wild", "seat"]
@@ -54,31 +56,15 @@ function clickHandlerFunction() {
     } else {
         gameState.secondClick = this;
         var overallClassSecond = gameState.secondClick.className;
-        var classRowSecond = overallClassSecond.slice(0, 1);
+        gameState.classRowSecond = overallClassSecond.slice(0, 1);
         var classColSecond = overallClassSecond.slice(0, 2);
-        classColSecond = classColSecond.slice(1, 2);
-        console.log("RowSecond: ", classRowSecond);
-        console.log("ColSecond: ", classColSecond);
+        gameState.classColSecond = classColSecond.slice(1, 2);
+        console.log("RowSecond: ", gameState.classRowSecond);
+        console.log("ColSecond: ", gameState.classColSecond);
         console.log(gameState.secondClick);
         removeClickHandlers();
-        if (isValidMove(gameState.classRowFirst, classRowSecond, gameState.classColFirst, classColSecond)) {
-            if (classRowSecond < gameState.classRowFirst && classColSecond > gameState.classColFirst) {
-                northEast(gameState.classRowFirst, classRowSecond, gameState.classColFirst, classColSecond);
-            } else if (classRowSecond === gameState.classRowFirst && classColSecond > gameState.classColFirst) {
-                east(gameState.classRowFirst, classRowSecond, gameState.classColFirst, classColSecond);
-            } else if(classRowSecond > gameState.classRowFirst && classColSecond > gameState.classColFirst) {
-                southEast(gameState.classRowFirst, classRowSecond, gameState.classColFirst, classColSecond);
-            } else if(classRowSecond > gameState.classRowFirst && classColSecond === gameState.classColFirst) {
-                south(gameState.classRowFirst, classRowSecond, gameState.classColFirst, classColSecond);
-            } else if(classRowSecond > gameState.classRowFirst && classColSecond < gameState.classColFirst) {
-                southWest(gameState.classRowFirst, classRowSecond, gameState.classColFirst, classColSecond);
-            } else if(classRowSecond === gameState.classRowFirst && classColSecond < gameState.classColFirst){
-                 west(gameState.classRowFirst, classRowSecond, gameState.classColFirst, classColSecond);
-            } else if(classRowSecond < gameState.classRowFirst && classColSecond < gameState.classColFirst) {
-                 northwest(gameState.classRowFirst, classRowSecond, gameState.classColFirst, classColSecond);
-            } else if(classRowSecond < gameState.classRowFirst && classColSecond === gameState.classColFirst) {
-                 north(gameState.classRowFirst, classRowSecond, gameState.classColFirst, classColSecond);
-            }
+        if (isValidMove(gameState.classRowFirst, gameState.classRowSecond, gameState.classColFirst, gameState.classColSecond)) {
+            determineDirection(gameState.classRowFirst, gameState.classRowSecond, gameState.classColFirst, gameState.classColSecond);
         }
     }
 }
@@ -107,7 +93,7 @@ function northEast(row1, row2, col1, col2) {
     var rowCount = row1;
     var len = Math.abs(row2 - row1);
     for(var i = 0; i <= len; i++) {
-        gameState.wordString += $(".cell." + rowCount + colCount);
+        gameState.wordString += $(".cell." + rowCount + colCount).text();//.find(".cellText").text();
         rowCount--;
         colCount++;
     }
@@ -115,28 +101,91 @@ function northEast(row1, row2, col1, col2) {
 }
 
 function east(row1, row2, col1, col2) {
-    var word = "";
     var colCount = col1;
     var rowCount = row1;
     var len = Math.abs(col2 - col1);
     for(var i = 0; i <= len; i++) {
-        gameState.wordString += $(".cell." + rowCount + colCount).text();   //.find(".cellText").text();
+        gameState.wordString += $(".cell." + rowCount + colCount).text();//.find(".cellText").text();
         console.log(".cell." + rowCount + colCount);
         colCount++;
     }
     console.log(gameState.wordString);
 }
 
+function southEast(row1, row2, col1, col2) {
+    var colCount = col1;
+    var rowCount = row1;
+    var len = Math.abs(row2 - row1);
+    for(var i = 0; i <= len; i++) {
+        gameState.wordString += $(".cell." + rowCount + colCount).text();//.find(".cellText").text();
+        console.log(".cell." + rowCount + colCount);
+        colCount++;
+        rowCount++;
+    }
+    console.log(gameState.wordString);
+}
 
+function south(row1, row2, col1, col2) {
+    var colCount = col1;
+    var rowCount = row1;
+    var len = Math.abs(row2 - row1);
+    for(var i = 0; i <= len; i++) {
+        gameState.wordString += $(".cell." + rowCount + colCount).text();//.find(".cellText").text();
+        console.log(".cell." + rowCount + colCount);
+        rowCount++;
+    }
+    console.log(gameState.wordString);
+}
 
+function southWest(row1, row2, col1, col2) {
+    var colCount = col1;
+    var rowCount = row1;
+    var len = Math.abs(col2 - col1);
+    for(var i = 0; i <= len; i++) {
+        gameState.wordString += $(".cell." + rowCount + colCount).text();//.find(".cellText").text();
+        console.log(".cell." + rowCount + colCount);
+        rowCount++;
+        colCount--;
+    }
+    console.log(gameState.wordString);
+}
 
+function west(row1, row2, col1, col2) {
+    var colCount = col1;
+    var rowCount = row1;
+    var len = Math.abs(col2 - col1);
+    for(var i = 0; i <= len; i++) {
+        gameState.wordString += $(".cell." + rowCount + colCount).text();//.find(".cellText").text();
+        console.log(".cell." + rowCount + colCount);
+        colCount--;
+    }
+    console.log(gameState.wordString);
+}
 
+function northwest(row1, row2, col1, col2) {
+    var colCount = col1;
+    var rowCount = row1;
+    var len = Math.abs(row2 - row1);
+    for(var i = 0; i <= len; i++) {
+        gameState.wordString += $(".cell." + rowCount + colCount).text();//.find(".cellText").text();
+        console.log(".cell." + rowCount + colCount);
+        colCount--;
+        rowCount--;
+    }
+    console.log(gameState.wordString);
+}
 
-
-
-
-
-
+function north(row1, row2, col1, col2) {
+    var colCount = col1;
+    var rowCount = row1;
+    var len = Math.abs(row2 - row1);
+    for(var i = 0; i <= len; i++) {
+        gameState.wordString += $(".cell." + rowCount + colCount).text();//.find(".cellText").text();
+        console.log(".cell." + rowCount + colCount);
+        rowCount--;
+    }
+    console.log(gameState.wordString);
+}
 
 
 

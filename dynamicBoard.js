@@ -11,6 +11,18 @@ const words = [
   'cricked',
 ];
 
+const gameState = {
+  firstClick: null,
+  classRowFirst: null,
+  classColFirst: null,
+  classColSecond: null,
+  classRowSecond: null,
+  secondClick: null,
+  wordString: "",
+  wordArr: null,
+  wordsLeftToMatch: 10
+};
+
 config = {
   length: 10,
   directions: ['N', 'NE', 'E', 'SE', 'S', 'SW', 'W', 'NW'],
@@ -310,14 +322,17 @@ function createDynamicBoard() {
       }
 
       // fill empty space with random letters
-      // board.forEach((row, y) => {
-      //   row.forEach((value, x) => {
-      //     if (!value) board[y][x] = getRandomLetter();
-      //   })
-      // })
+      board.forEach((row, y) => {
+        row.forEach((value, x) => {
+          if (!value) board[y][x] = getRandomLetter();
+        })
+      })
 
       // if all words have been used, return completed board
-      if (words.length === 0) return board;
+      if (words.length === 0) {
+        gameState.wordArr = randomWords;
+        return board;
+      } 
     }
   }
 }

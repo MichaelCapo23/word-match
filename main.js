@@ -1,13 +1,40 @@
 $(document).ready(startApp);
 
+/**
+ * Adds initial button handlers
+ */
 function startApp() {
-    createDomBoard(dummyBoard());
-    addClickHandlers();
-    populateWords();
-    canvasSetup();
+  addStartButtonHandler();
 }
 
-function dummyBoard() {
+/**
+ * Start game callback and activates reset button handler
+ */
+function start() {
+  reset();
+  $('.resetButton').click(reset);
+}
+
+/**
+ * Adds start game callback handler to button 
+ */
+function addStartButtonHandler() {
+  $('.startButton').click(start);
+}
+
+/**
+ * Resets game and handlers
+ */
+function reset() {
+  $('.boardContainer').empty();
+  $('.wordsArrContainer').empty();
+  createDomBoard(createEmptyBoard());
+  addClickHandlers();
+  populateWords();
+  canvasSetup();
+}
+
+function createEmptyBoard() {
     return Array(10).fill(0).map(row => Array(10).fill(0));
 }
 

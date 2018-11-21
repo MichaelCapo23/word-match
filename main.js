@@ -16,7 +16,7 @@ function startApp() {
     createDomBoard(dummyBoard());
     addClickHandlers();
     populateWords();
-    addWordToBoard()
+    // addWordToBoard()
 }
 
 function addWordToBoard() {
@@ -53,18 +53,19 @@ function populateWords() {
             'class': `center-align ${gameState.wordArr[index]}`
         }));
     }
+  const testArray = 
+    [['y', 'e', 'r', 'i', 'h', 's', 'e', 'w', 0, 'c'],
+      [0, 'n', 'a', 'c', 'h', 'e', 's', 't', 'e', 'r'],
+      [0, 0, 'i', 'c', 0, 's', 0, 0, 'a', 'i'],
+      ['w', 'h', 'e', 'a', 't', 's', 0, 'g', 0, 'c'],
+      [0, 0, 0, 'y', 'r', 'i', 'e', 0, 0, 'k'],
+      [0, 0, 0, 0, 'k', 'o', 'v', 0, 0, 'e'],
+      ['c', 'i', 't', 's', 'o', 'n', 'g', 'e', 0, 'd'],
+      [0, 0, 0, 0, 0, 0, 'u', 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 'm', 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]]
 
-    const testArray = [[0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-        [0, 'w', 'h', 'e', 'a', 't', 0, 0, 0, 0],
-        [0, 0, 'e', 0, 0, 0, 0, 0, 0, 0],
-        ['g', 'n', 'o', 's', 't', 'i', 'c', 0, 0, 0],
-        [0, 0, 0, 0, 'h', 'r', 'a', 'i', 'n', 'y'],
-        [0, 0, 0, 0, 'i', 'i', 0, 0, 0, 0],
-        [0, 0, 0, 'c', 0, 0, 'r', 0, 0, 0],
-        [0, 0, 'k', 0, 0, 0, 0, 'e', 0, 0],
-        [0, 'e', 0, 0, 0, 0, 0, 0, 0, 0],
-        ['d', 0, 0, 0, 0, 0, 0, 0, 0, 0]];
-    populateBoard(testArray);
+  populateBoard(testArray);
 }
 
 function populateBoard(nestedArray) {

@@ -1,6 +1,6 @@
 $(document).ready(startApp);
 
-const countdownTime = 3 * 60;
+const countdownTime = 180;
 let timer;
 
 /**
@@ -9,7 +9,7 @@ let timer;
 function startApp() {
   addStartButtonHandler();
   M.AutoInit();
-  $('#gameWon a').click(reset);
+  $('.modal a').click(reset);
   const formattedTime = formatTime(countdownTime);
   displayTime(formattedTime);
 }
@@ -78,7 +78,10 @@ function countdown(totalSeconds) {
   displayTime(formattedTime);
 
   const timer = setInterval(() => {
-    if (--totalSeconds === 0) clearInterval(timer);
+    if (--totalSeconds === 0) {
+        clearInterval(timer);
+        gameLost();
+    }
 
     const formattedTime = formatTime(totalSeconds);
     displayTime(formattedTime);
@@ -87,6 +90,10 @@ function countdown(totalSeconds) {
   return timer;
 }
 
+/**
+ * Clears countdown timer
+ * @param {number} timer 
+ */
 function stopCountdown(timer) {
   clearInterval(timer);
 }
@@ -271,5 +278,9 @@ function matchedWordsLeft() {
 }
 
 function gameWon() {
-    $('.modal').modal('open');
+    $('#gameWon').modal('open');
+}
+
+function gameLost() {
+    $('#gameLost').modal('open');
 }

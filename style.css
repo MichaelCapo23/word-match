@@ -13,9 +13,11 @@ body {
 .row {
     margin: 0;
 }
-.wordsArrContainer {
-    height: 90vh;
+
+.wordsWrapper {
+  height: 90vh;
 }
+
 .containerWrapper {
     height: 90vh;
     position: relative;
@@ -66,3 +68,4 @@ h1, h5 {
     right: 4%;
     transform: translateY(-50%);
 }
+

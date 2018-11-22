@@ -41,6 +41,17 @@ div {
 }
 .timerWrapper {
     height: 90vh;
+    visibility: hidden;
+}
+.timerCard {
+    height: 20vh;
+}
+.timerSpan {
+    font-size: 3.5rem;
+    text-align: center;
+    position: relative;
+    top: 50%;
+    transform: translateY(-50%);
 }
 .cell {
     height: 10%;
@@ -92,9 +103,6 @@ h1 {
     transform: translateY(-50%);
 }
 
-.timerCard {
-    height: 20vh;
-}
 .wordsArrContainer h5:first-child {
     padding-top: 2rem;
 }

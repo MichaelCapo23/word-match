@@ -1,8 +1,16 @@
 $(document).ready(startApp);
-
+var boardSize = 10;
+var colors = ['red', 'purple', 'fuchsia', 'blue', 'aqua', 'lime', 'green', 'yellow', 'orange'];
+var totalColorChanges = 0;
+var row = 0;
+var col = 0;
+var end = 0;
+var currentColor = colors.shift();
 /**
  * Adds initial button handlers
  */
+
+
 function startApp() {
   addStartButtonHandler();
   M.AutoInit();
@@ -122,12 +130,12 @@ function createDomBoard(board) {
  * Populates board and words side banner on DOM
  */
 function populateWords() {
-  populateBoard(createDynamicBoard());
+    populateBoard(createDynamicBoard());
 
-  for (let index = 0; index < gameState.wordArr.length; index++) {
-    $('.wordsArrContainer').append($('<h5>', {
-        text: gameState.wordArr[index],
-        'class': `center-align ${gameState.wordArr[index]}`
+    for (let index = 0; index < gameState.wordArr.length; index++) {
+        $('.wordsArrContainer').append($('<h5>', {
+            text: gameState.wordArr[index],
+            'class': `center-align ${gameState.wordArr[index]}`
         }));
     }
 }
@@ -291,12 +299,15 @@ function isWordMatch() {
     const reverseIndex = gameState.wordArr.indexOf(reverseString);
     if (normalIndex !== -1 || reverseIndex !== -1) {
         const word = $(`.${gameState.wordString}`);
-        word.css('text-decoration', 'line-through red');
+        word.css('text-decoration', 'line-through black');
         const reverseWord = $(`.${reverseString}`);
-        reverseWord.css('text-decoration', 'line-through red');
+        reverseWord.css('text-decoration', 'line-through black');
         if (normalIndex !== -1) {
             gameState.wordArr.splice(normalIndex, 1);
-            drawLine({x: gameState.classColFirst, y: gameState.classRowFirst}, {x: gameState.classColSecond, y: gameState.classRowSecond});
+            drawLine({x: gameState.classColFirst, y: gameState.classRowFirst}, {
+                x: gameState.classColSecond,
+                y: gameState.classRowSecond
+            });
             return true;
         } else {
             gameState.wordArr.splice(reverseIndex, 1);
@@ -323,6 +334,7 @@ function matchedWordsLeft() {
 function gameWon() {
     $('#gameWon').modal('open');
     stopCountdown();
+    changeThatColor();
 }
 
 /**
@@ -330,4 +342,27 @@ function gameWon() {
  */
 function gameLost() {
     $('#gameLost').modal('open');
+}
+
+function changeThatColor() {
+    if (totalColorChanges > 9) {
+        row = totalColorChanges - 9;
+        col = boardSize - 1;
+        end++;
+    } else {
+        col = totalColorChanges;
+        row = 0;
+    }
+    for (var i = col; col >= end; col--) {
+        $(`.${row}${col}`).css('background-color', currentColor);
+        row++;
+    }
+    totalColorChanges++;
+    if (totalColorChanges === 19) {
+        totalColorChanges = 0;
+        colors.push(currentColor);
+        currentColor = colors.shift();
+        end = 0;
+    }
+    setTimeout(changeThatColor, 50);
 }

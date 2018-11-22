@@ -113,6 +113,7 @@ h1 {
 
 .cell:hover {
     color: rgb(131, 226, 226);
+    cursor: pointer;
 }
 
 .shakeAnimation {

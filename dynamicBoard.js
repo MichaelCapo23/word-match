@@ -20,7 +20,9 @@ const gameState = {
   secondClick: null,
   wordString: "",
   wordArr: null,
-  wordsLeftToMatch: 10
+  wordsLeftToMatch: 10,
+  timer: null,
+  countdownTime: 3 * 60,
 };
 
 config = {
@@ -34,7 +36,6 @@ config = {
  */
 function getRandomWords() {
   const words = shuffle(config.words).splice(0, 10);
-  console.log(words);
 
   return words;
 }
@@ -337,8 +338,3 @@ function createDynamicBoard() {
   }
 }
 
-// random words library
-// real random words function
-// if can't create board within attempts, get new words and retry
-const board = createDynamicBoard();
-console.log(board);

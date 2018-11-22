@@ -1,8 +1,5 @@
 $(document).ready(startApp);
 
-const countdownTime = 180;
-let timer;
-
 /**
  * Adds initial button handlers
  */
@@ -10,7 +7,7 @@ function startApp() {
   addStartButtonHandler();
   M.AutoInit();
   $('.modal a').click(reset);
-  const formattedTime = formatTime(countdownTime);
+  const formattedTime = formatTime(gameState.countdownTime);
   displayTime(formattedTime);
 }
 
@@ -44,8 +41,8 @@ function reset() {
   addClickHandlers();
   populateWords();
   canvasSetup();
-  stopCountdown(timer);
-  timer = countdown(countdownTime);
+  stopCountdown();
+  countdown(gameState.countdownTime);
 }
 
 /**
@@ -79,31 +76,35 @@ function countdown(totalSeconds) {
   const formattedTime = formatTime(totalSeconds);
   displayTime(formattedTime);
 
-  const timer = setInterval(() => {
+  gameState.timer = setInterval(() => {
     if (--totalSeconds === 0) {
-        clearInterval(timer);
+        clearInterval(gameState.timer);
         gameLost();
     }
 
     const formattedTime = formatTime(totalSeconds);
     displayTime(formattedTime);
   }, 1000)
-
-  return timer;
 }
 
 /**
  * Clears countdown timer
- * @param {number} timer 
  */
-function stopCountdown(timer) {
-  clearInterval(timer);
+function stopCountdown() {
+  clearInterval(gameState.timer);
 }
 
+/**
+ * Creates empty board
+ */
 function createEmptyBoard() {
     return Array(10).fill(0).map(row => Array(10).fill(0));
 }
 
+/**
+ * Creates empty board on the DOM
+ * @param {array} board 
+ */
 function createDomBoard(board) {
     board.forEach((row, y) => {
         row.forEach((value, x) => {
@@ -117,8 +118,9 @@ function createDomBoard(board) {
     })
 }
 
-//generates 10 words, puts it in gameState wordArr, populats the left
-//side banner, and calls the dynamic board creation
+/**
+ * Populates board and words side banner on DOM
+ */
 function populateWords() {
   populateBoard(createDynamicBoard());
 
@@ -130,6 +132,11 @@ function populateWords() {
     }
 }
 
+
+/**
+ * Populates board on DOM
+ * @param {array} nestedArray 
+ */
 function populateBoard(nestedArray) {
     for (var i = 0; i < 10; i++) {
         for (var j = 0; j < 10; j++) {
@@ -139,14 +146,24 @@ function populateBoard(nestedArray) {
     }
 }
 
+/**
+ * Adds click handlers for letters on the board
+ */
 function addClickHandlers() {
     $(".containerWrapper").on("click", ".cell", clickHandlerFunction);
 }
 
+/**
+ * Removes click handlers for letters on the board
+ */
 function removeClickHandlers() {
     $(".containerWrapper").off("click", ".cell", clickHandlerFunction);
 }
 
+/**
+ * Click handler for checking if selection is valid and word match exists
+ * Also adds shake animation upon click
+ */
 function clickHandlerFunction() {
     var elem = $(this);
     elem.addClass('shakeAnimation');
@@ -201,6 +218,13 @@ function clickHandlerFunction() {
     }
 }
 
+/**
+ * Checks if selection is valid
+ * @param {number} row1 
+ * @param {number} row2 
+ * @param {number} col1 
+ * @param {number} col2 
+ */
 function isValidMove(row1, row2, col1, col2) {
     var rowDiff = Math.abs(row2 - row1);
     var colDiff = Math.abs(col2 - col1);
@@ -217,6 +241,9 @@ function isValidMove(row1, row2, col1, col2) {
     return false;
 }
 
+/**
+ * Creates blank canvas overlaid on board
+ */
 function canvasSetup() {
     var percent = '100%';
     var cellWidth = $('.cell').width();
@@ -231,6 +258,11 @@ function canvasSetup() {
     }).prependTo('.boardContainer');
 }
 
+/**
+ * Draws line on canvas between coordinates
+ * @param {object} coordinate1 
+ * @param {object} coordinate2 
+ */
 function drawLine(coordinate1, coordinate2){
     let canvasElement = $('.canvas')[0];
     let context = canvasElement.getContext('2d');
@@ -248,7 +280,10 @@ function drawLine(coordinate1, coordinate2){
     context.lineTo(endX, endY);
     context.stroke();
 }
-  
+
+/**
+ * Checks if word match exists
+ */
 function isWordMatch() {
     const normalIndex = gameState.wordArr.indexOf(gameState.wordString);
     const reversedWord = gameState.wordString.split('').reverse();
@@ -272,6 +307,9 @@ function isWordMatch() {
     return false;
 }
 
+/**
+ * Checks words remaining and wins if equal zero
+ */
 function matchedWordsLeft() {
     gameState.wordsLeftToMatch--;
     if (gameState.wordsLeftToMatch === 0) {
@@ -279,11 +317,17 @@ function matchedWordsLeft() {
     }
 }
 
+/**
+ * Opens game won modal and stops countdown
+ */
 function gameWon() {
     $('#gameWon').modal('open');
-    stopCountdown(timer);
+    stopCountdown();
 }
 
+/**
+ * Opens game lost modal and stops countdown
+ */
 function gameLost() {
     $('#gameLost').modal('open');
 }

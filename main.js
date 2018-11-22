@@ -24,6 +24,7 @@ function start() {
   $('.startButton').removeClass('pulse');
   $('.startButton').off('click', start);
   $('.timerWrapper').css('visibility','visible');
+  $('.credits').css('visibility','hidden');
 }
 
 /**

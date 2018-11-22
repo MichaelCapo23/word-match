@@ -23,6 +23,7 @@ function start() {
   $('.wordsCard').addClass('z-depth-2');
   $('.startButton').removeClass('pulse');
   $('.startButton').off('click', start);
+  $('.timerWrapper').css('visibility','visible');
 }
 
 /**
@@ -51,7 +52,7 @@ function reset() {
  * @param {string} formattedTime 
  */
 function displayTime(formattedTime) {
-  const display = $('.timerCard');
+  const display = $('.timerSpan');
   display.text(formattedTime);
 }
 
@@ -279,6 +280,7 @@ function matchedWordsLeft() {
 
 function gameWon() {
     $('#gameWon').modal('open');
+    stopCountdown(timer);
 }
 
 function gameLost() {

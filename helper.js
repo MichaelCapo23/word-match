@@ -1,11 +1,6 @@
-function shuffleArray(array) {
-    for (let i = array.length - 1; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1));
-        [array[i], array[j]] = [array[j], array[i]];
-    }
-    return array;
-}
-
+/**
+ * Determines direction based on clicked cells
+ */
 function determineDirection() {
     if (gameState.classRowSecond < gameState.classRowFirst && gameState.classColSecond > gameState.classColFirst) {
         northEast(gameState.classRowFirst, gameState.classRowSecond, gameState.classColFirst, gameState.classColSecond);
@@ -26,101 +21,142 @@ function determineDirection() {
     }
 }
 
+/**
+ * Goes to next coordinate from current in Northeast direction
+ * @param {number} row1 
+ * @param {number} row2
+ * @param {number} col1
+ * @param {number} col2
+ */
 function northEast(row1, row2, col1, col2) {
     var colCount = col1;
     var rowCount = row1;
     var len = Math.abs(row2 - row1);
     for(var i = 0; i <= len; i++) {
-        gameState.wordString += $(".cell." + rowCount + colCount).text();//.find(".cellText").text();
+        gameState.wordString += $(".cell." + rowCount + colCount).text();
         rowCount--;
         colCount++;
     }
-    console.log(gameState.wordString);
 }
 
+/**
+ * Goes to next coordinate from current in East direction
+ * @param {number} row1 
+ * @param {number} row2
+ * @param {number} col1
+ * @param {number} col2
+ */
 function east(row1, row2, col1, col2) {
     var colCount = col1;
     var rowCount = row1;
     var len = Math.abs(col2 - col1);
     for(var i = 0; i <= len; i++) {
-        gameState.wordString += $(".cell." + rowCount + colCount).text();//.find(".cellText").text();
-        console.log(".cell." + rowCount + colCount);
+        gameState.wordString += $(".cell." + rowCount + colCount).text();
         colCount++;
     }
-    console.log(gameState.wordString);
 }
 
+/**
+ * Goes to next coordinate from current in Southwest direction
+ * @param {number} row1 
+ * @param {number} row2
+ * @param {number} col1
+ * @param {number} col2
+ */
 function southEast(row1, row2, col1, col2) {
     var colCount = col1;
     var rowCount = row1;
     var len = Math.abs(row2 - row1);
     for(var i = 0; i <= len; i++) {
-        gameState.wordString += $(".cell." + rowCount + colCount).text();//.find(".cellText").text();
-        console.log(".cell." + rowCount + colCount);
+        gameState.wordString += $(".cell." + rowCount + colCount).text();
         colCount++;
         rowCount++;
     }
-    console.log(gameState.wordString);
 }
 
+/**
+ * Goes to next coordinate from current in South direction
+ * @param {number} row1 
+ * @param {number} row2
+ * @param {number} col1
+ * @param {number} col2
+ */
 function south(row1, row2, col1, col2) {
     var colCount = col1;
     var rowCount = row1;
     var len = Math.abs(row2 - row1);
     for(var i = 0; i <= len; i++) {
-        gameState.wordString += $(".cell." + rowCount + colCount).text();//.find(".cellText").text();
-        console.log(".cell." + rowCount + colCount);
+        gameState.wordString += $(".cell." + rowCount + colCount).text();
         rowCount++;
     }
-    console.log(gameState.wordString);
 }
 
+/**
+ * Goes to next coordinate from current in Southwest direction
+ * @param {number} row1 
+ * @param {number} row2
+ * @param {number} col1
+ * @param {number} col2
+ */
 function southWest(row1, row2, col1, col2) {
     var colCount = col1;
     var rowCount = row1;
     var len = Math.abs(col2 - col1);
     for(var i = 0; i <= len; i++) {
-        gameState.wordString += $(".cell." + rowCount + colCount).text();//.find(".cellText").text();
-        console.log(".cell." + rowCount + colCount);
+        gameState.wordString += $(".cell." + rowCount + colCount).text();
         rowCount++;
         colCount--;
     }
-    console.log(gameState.wordString);
 }
 
+/**
+ * Goes to next coordinate from current in West direction
+ * @param {number} row1 
+ * @param {number} row2
+ * @param {number} col1
+ * @param {number} col2
+ */
 function west(row1, row2, col1, col2) {
     var colCount = col1;
     var rowCount = row1;
     var len = Math.abs(col2 - col1);
     for(var i = 0; i <= len; i++) {
-        gameState.wordString += $(".cell." + rowCount + colCount).text();//.find(".cellText").text();
-        console.log(".cell." + rowCount + colCount);
+        gameState.wordString += $(".cell." + rowCount + colCount).text();
         colCount--;
     }
-    console.log(gameState.wordString);
 }
 
+/**
+ * Goes to next coordinate from current in Northwest direction
+ * @param {number} row1 
+ * @param {number} row2
+ * @param {number} col1
+ * @param {number} col2
+ */
 function northwest(row1, row2, col1, col2) {
     var colCount = col1;
     var rowCount = row1;
     var len = Math.abs(row2 - row1);
     for(var i = 0; i <= len; i++) {
-        gameState.wordString += $(".cell." + rowCount + colCount).text();//.find(".cellText").text();
-        console.log(".cell." + rowCount + colCount);
+        gameState.wordString += $(".cell." + rowCount + colCount).text();
         colCount--;
         rowCount--;
     }
-    console.log(gameState.wordString);
 }
 
+/**
+ * Goes to next coordinate from current in North direction
+ * @param {number} row1 
+ * @param {number} row2
+ * @param {number} col1
+ * @param {number} col2
+ */
 function north(row1, row2, col1, col2) {
     var colCount = col1;
     var rowCount = row1;
     var len = Math.abs(row2 - row1);
     for(var i = 0; i <= len; i++) {
-        gameState.wordString += $(".cell." + rowCount + colCount).text();//.find(".cellText").text();
-        console.log(".cell." + rowCount + colCount);
+        gameState.wordString += $(".cell." + rowCount + colCount).text();
         rowCount--;
     }
-    console.log(gameState.wordString);
 }

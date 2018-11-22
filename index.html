@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://fonts.googleapis.com/css?family=Raleway:400,500,600" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <link rel="stylesheet" href="style.css">
+    <script src="https://code.jquery.com/jquery-3.1.0.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <script src="helper.js"></script>
+    <script src="dynamicBoard.js"></script>
+    <script src="main.js"></script>
+    <title>wordSearch</title>
+</head>
+<body>
+    <div class="overallContainer container">
+        <header class="header teal z-depth-3">
+            <h1 class="center-align title">Word Search</h1>
+            <div class="buttonContainer">
+                <a class="waves-effect waves-light btn startButton pulse">Start</a>
+                <a class="waves-effect waves-light btn resetButton">Reset</a>
+            </div>
+        </header>
+        <div class="row">
+            <div class="wordsWrapper col s2">
+                <div class="wordsCard teal lighten-3">
+                    <div class="wordsArrContainer"></div>
+                </div>
+            </div>
+            <div class="containerWrapper col s8">
+                <div class="boardContainer" >
+
+                </div>
+            </div>
+            <div class="timerWrapper col s2">
+                <div class="timerCard teal lighten-3">
+                    <div class="timerSpan truncate">
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="gameWon" class="modal">
+        <div class="modal-content">
+            <h4>Congrats!</h4>
+            <p>You won! Play again?</p>
+        </div>
+        <div class="modal-footer">
+            <a href="#!" class="modal-close waves-effect waves-green btn-flat">Yes!</a>
+        </div>
+    </div>
+    <div id="gameLost" class="modal">
+        <div class="modal-content">
+            <h4>Game Over</h4>
+            <p>You lost... Wanna try again?</p>
+        </div>
+        <div class="modal-footer">
+            <a href="#!" class="modal-close waves-effect waves-green btn-flat">Yes!</a>
+        </div>
+    </div>
+    <div class="credits">
+        <h4>Created by Cy, Erick, and Michael</h4>
+        <h4>LFZ Hackathon 1</h4>
+    </div>
+</body>
+</html>

@@ -13,6 +13,7 @@ div {
     width: 100%;
     position: relative;
     user-select: none;
+    font-family: 'Raleway';
 }
 .row {
     margin: 0;
@@ -69,6 +70,8 @@ div {
 h1, h5 {
     margin: 0;
     user-select: none;
+    font-family: 'Raleway';
+    font-weight: 500;
 }
 h1 {
     font-weight: 300;

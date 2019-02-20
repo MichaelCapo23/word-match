@@ -4,94 +4,95 @@ $(document).ready(startApp);
  * Adds initial button handlers
  */
 function startApp() {
-  addStartButtonHandler();
-  M.AutoInit();
-  $('.modal a').click(reset);
-  const formattedTime = formatTime(gameState.countdownTime);
-  displayTime(formattedTime);
+    addStartButtonHandler();
+    M.AutoInit();
+    $('.modal a').click(reset);
+    const formattedTime = formatTime(gameState.countdownTime);
+    displayTime(formattedTime);
 }
 
 /**
  * Start game callback and activates reset button handler
  */
 function start() {
-  reset();
-  $('.resetButton').click(reset);
-  $('.wordsCard').addClass('z-depth-2');
-  $('.startButton').removeClass('pulse');
-  $('.startButton').off('click', start);
-  $('.timerWrapper').css('visibility','visible');
-  $('.credits').css('visibility','hidden');
+    reset();
+    $('.resetButton').click(reset);
+    $('.wordsCard').addClass('z-depth-2');
+    $('.startButton').removeClass('pulse');
+    $('.startButton').off('click', start);
+    $('.timerWrapper').css('visibility', 'visible');
+    $('.credits').css('visibility', 'hidden');
 }
 
 /**
- * Adds start game callback handler to button 
+ * Adds start game callback handler to button
  */
 function addStartButtonHandler() {
-  $('.startButton').click(start);
+    $('.startButton').click(start);
 }
 
 /**
  * Resets game and handlers
  */
 function reset() {
-  $('.boardContainer').empty();
-  $('.wordsArrContainer').empty();
-  createDomBoard(createEmptyBoard());
-  addClickHandlers();
-  populateWords();
-  canvasSetup();
-  stopCountdown();
-  countdown(gameState.countdownTime);
+    debugger;
+    $('.boardContainer').empty();
+    $('.wordsArrContainer').empty();
+    createDomBoard(createEmptyBoard());
+    addClickHandlers();
+    populateWords();
+    canvasSetup();
+    stopCountdown();
+    countdown(gameState.countdownTime);
 }
 
 /**
  * Updates time display
- * @param {string} formattedTime 
+ * @param {string} formattedTime
  */
 function displayTime(formattedTime) {
-  const display = $('.timerSpan');
-  display.text(formattedTime);
+    const display = $('.timerSpan');
+    display.text(formattedTime);
 }
 
 /**
  * Return time formatted in MM:SS
- * @param {number} totalSeconds 
+ * @param {number} totalSeconds
  */
 function formatTime(totalSeconds) {
-  const minutes = totalSeconds / 60 | 0;
-  const seconds = totalSeconds % 60;
-  const displayMinutes = minutes < 10 ? '0' + minutes : minutes;
-  const displaySeconds = seconds < 10 ? '0' + seconds : seconds;
-  const formattedTime = displayMinutes + ':' + displaySeconds;
+    const minutes = totalSeconds / 60 | 0;
+    const seconds = totalSeconds % 60;
+    const displayMinutes = minutes < 10 ? '0' + minutes : minutes;
+    const displaySeconds = seconds < 10 ? '0' + seconds : seconds;
+    const formattedTime = displayMinutes + ':' + displaySeconds;
 
-  return formattedTime;
+    return formattedTime;
 }
 
 /**
  * Counts down timer and updates display
- * @param {seconds} totalSeconds 
+ * @param {seconds} totalSeconds
  */
 function countdown(totalSeconds) {
-  const formattedTime = formatTime(totalSeconds);
-  displayTime(formattedTime);
-
-  gameState.timer = setInterval(() => {
-    if (--totalSeconds === 0) {
-        clearInterval(gameState.timer);
-        gameLost();
-    }
-
     const formattedTime = formatTime(totalSeconds);
     displayTime(formattedTime);
-  }, 1000)
+
+    gameState.timer = setInterval(() => {
+        if (--totalSeconds === 0) {
+            clearInterval(gameState.timer);
+            gameLost();
+        }
+
+        const formattedTime = formatTime(totalSeconds);
+        displayTime(formattedTime);
+    }, 1000)
 }
 
 /**
  * Clears countdown timer
  */
 function stopCountdown() {
-  clearInterval(gameState.timer);
+    clearInterval(gameState.timer);
 }
 
 /**
@@ -103,7 +104,7 @@ function createEmptyBoard() {
 
 /**
  * Creates empty board on the DOM
- * @param {array} board 
+ * @param {array} board
  */
 function createDomBoard(board) {
     board.forEach((row, y) => {
@@ -122,12 +123,12 @@ function createDomBoard(board) {
  * Populates board and words side banner on DOM
  */
 function populateWords() {
-  populateBoard(createDynamicBoard());
+    populateBoard(createDynamicBoard());
 
-  for (let index = 0; index < gameState.wordArr.length; index++) {
-    $('.wordsArrContainer').append($('<h5>', {
-        text: gameState.wordArr[index],
-        'class': `center-align ${gameState.wordArr[index]}`
+    for (let index = 0; index < gameState.wordArr.length; index++) {
+        $('.wordsArrContainer').append($('<h5>', {
+            text: gameState.wordArr[index],
+            'class': `center-align ${gameState.wordArr[index]}`
         }));
     }
 }
@@ -135,7 +136,7 @@ function populateWords() {
 
 /**
  * Populates board on DOM
- * @param {array} nestedArray 
+ * @param {array} nestedArray
  */
 function populateBoard(nestedArray) {
     for (var i = 0; i < 10; i++) {
@@ -167,7 +168,7 @@ function removeClickHandlers() {
 function clickHandlerFunction() {
     var elem = $(this);
     elem.addClass('shakeAnimation');
-    setTimeout(function(){
+    setTimeout(function () {
         elem.removeClass('shakeAnimation');
     }, 820);
     if (gameState.firstClick === null) {
@@ -220,10 +221,10 @@ function clickHandlerFunction() {
 
 /**
  * Checks if selection is valid
- * @param {number} row1 
- * @param {number} row2 
- * @param {number} col1 
- * @param {number} col2 
+ * @param {number} row1
+ * @param {number} row2
+ * @param {number} col1
+ * @param {number} col2
  */
 function isValidMove(row1, row2, col1, col2) {
     var rowDiff = Math.abs(row2 - row1);
@@ -260,10 +261,10 @@ function canvasSetup() {
 
 /**
  * Draws line on canvas between coordinates
- * @param {object} coordinate1 
- * @param {object} coordinate2 
+ * @param {object} coordinate1
+ * @param {object} coordinate2
  */
-function drawLine(coordinate1, coordinate2){
+function drawLine(coordinate1, coordinate2) {
     let canvasElement = $('.canvas')[0];
     let context = canvasElement.getContext('2d');
 
@@ -296,11 +297,17 @@ function isWordMatch() {
         reverseWord.css('text-decoration', 'line-through red');
         if (normalIndex !== -1) {
             gameState.wordArr.splice(normalIndex, 1);
-            drawLine({x: gameState.classColFirst, y: gameState.classRowFirst}, {x: gameState.classColSecond, y: gameState.classRowSecond});
+            drawLine({x: gameState.classColFirst, y: gameState.classRowFirst}, {
+                x: gameState.classColSecond,
+                y: gameState.classRowSecond
+            });
             return true;
         } else {
             gameState.wordArr.splice(reverseIndex, 1);
-            drawLine({x: gameState.classColFirst, y: gameState.classRowFirst}, {x: gameState.classColSecond, y: gameState.classRowSecond});
+            drawLine({x: gameState.classColFirst, y: gameState.classRowFirst}, {
+                x: gameState.classColSecond,
+                y: gameState.classRowSecond
+            });
             return true;
         }
     }

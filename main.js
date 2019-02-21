@@ -6,6 +6,7 @@ var row = 0;
 var col = 0;
 var end = 0;
 var currentColor = colors.shift();
+let stillChangeColor = false;
 /**
  * Adds initial button handlers
  */
@@ -43,7 +44,6 @@ function addStartButtonHandler() {
  * Resets game and handlers
  */
 function reset() {
-    debugger;
     $('.boardContainer').empty();
     $('.wordsArrContainer').empty();
     createDomBoard(createEmptyBoard());
@@ -132,7 +132,6 @@ function createDomBoard(board) {
  */
 function populateWords() {
     populateBoard(createDynamicBoard());
-
     for (let index = 0; index < gameState.wordArr.length; index++) {
         $('.wordsArrContainer').append($('<h5>', {
             text: gameState.wordArr[index],
@@ -338,7 +337,8 @@ function matchedWordsLeft() {
 function gameWon() {
     $('#gameWon').modal('open');
     stopCountdown();
-    changeThatColor();
+    stillChangeColor = true;
+    changeBackgroundColor();
 }
 
 /**
@@ -348,7 +348,22 @@ function gameLost() {
     $('#gameLost').modal('open');
 }
 
-function changeThatColor() {
+function stopBackgroundColor() {
+    stillChangeColor = false;
+    changeBackgroundColorWhite();
+}
+
+function changeBackgroundColorWhite() {
+    debugger;
+    for (let i = 0; i < 10; i++) {
+        for (let j = 0; j < 10; j++) {
+            let coordinate = '.' + i + j;
+            $(coordinate).css("background-color", "white");
+        }
+    }
+}
+
+function changeBackgroundColor() {
     if (totalColorChanges > 9) {
         row = totalColorChanges - 9;
         col = boardSize - 1;
@@ -368,5 +383,10 @@ function changeThatColor() {
         currentColor = colors.shift();
         end = 0;
     }
-    setTimeout(changeThatColor, 50);
+    if(stillChangeColor) {
+        setTimeout(changeBackgroundColor, 50);
+    } else {
+        changeBackgroundColorWhite();
+    }
+
 }

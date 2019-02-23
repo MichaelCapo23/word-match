@@ -261,11 +261,14 @@ h1 {
     /*}*/
 }
 
-@media only screen and (min-width: 800px) {
-    .timerCard {
-        min-height: 150px;
+/*@media only screen and (min-width: 800px) {*/
+    /*.timerCard {*/
+        /*min-height: 150px;*/
+    /*}*/
+/*}*/
+
+@media only screen and (max-height: 250px) {
+    .teal.lighten-3.timerCard {
+        background-color: white !important;
     }
 }
-/*@media only screen and (min-width: 600px) {*/
-/**/
-/*}*/

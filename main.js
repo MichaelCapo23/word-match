@@ -25,6 +25,7 @@ function startApp() {
  */
 function start() {
     reset();
+    $(".wordsCard").css("visibility", "visible");
     $('.resetButton').click(reset);
     $('.wordsCard').addClass('z-depth-2');
     $('.startButton').removeClass('pulse');
@@ -70,7 +71,7 @@ function displayTime(formattedTime) {
 function formatTime(totalSeconds) {
     const minutes = totalSeconds / 60 | 0;
     const seconds = totalSeconds % 60;
-    const displayMinutes = minutes < 10 ? '0' + minutes : minutes;
+    const displayMinutes = minutes < 10 ?  + minutes : minutes;
     const displaySeconds = seconds < 10 ? '0' + seconds : seconds;
     const formattedTime = displayMinutes + ':' + displaySeconds;
 
@@ -118,7 +119,8 @@ function createDomBoard(board) {
     board.forEach((row, y) => {
         row.forEach((value, x) => {
             const cell = $('<div>', {
-                'class': `${'' + y + x} cell`
+                'class': `${'' + y + x} cell`,
+                // style: "min-width: 50px; min-height: 50px;"
             }).append($('<h5>', {
                 'class': 'cellText'
             }));
@@ -135,7 +137,8 @@ function populateWords() {
     for (let index = 0; index < gameState.wordArr.length; index++) {
         $('.wordsArrContainer').append($('<h5>', {
             text: gameState.wordArr[index],
-            'class': `center-align ${gameState.wordArr[index]}`
+            'class': `col s4 m12 l12 center-align word ${gameState.wordArr[index]}`,
+            style: "vertical-align: center;"
         }));
     }
 }
@@ -146,9 +149,9 @@ function populateWords() {
  * @param {array} nestedArray
  */
 function populateBoard(nestedArray) {
-    for (var i = 0; i < 10; i++) {
-        for (var j = 0; j < 10; j++) {
-            var coordinate = '.' + i + j;
+    for (let i = 0; i < 10; i++) {
+        for (let j = 0; j < 10; j++) {
+            let coordinate = '.' + i + j;
             $(coordinate).find('.cellText').text(nestedArray[i][j]);
         }
     }

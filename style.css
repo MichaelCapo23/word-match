@@ -1,13 +1,16 @@
 body {
     margin: 0px;
 }
+
 div {
     user-select: none;
 }
+
 .overallContainer {
     height: 100vh;
     width: 100%;
 }
+
 .header {
     height: 10vh;
     width: 100%;
@@ -15,51 +18,67 @@ div {
     user-select: none;
     font-family: 'Raleway';
 }
+
 .row {
     margin: 0;
 }
 
 .wordsWrapper {
-  height: 90vh;
-  padding: 20%;
+    height: 90vh;
+    padding: 20%;
 }
 
 .containerWrapper {
     height: 90vh;
+    /*height: 100px*/
     position: relative;
 }
+
 .boardContainer {
-    height: 80vmin;
-    width: 80vmin;
+    height: 80vh;
+    width: 80vh;
     font-size: 0;
     position: absolute;
-    left:0; right:0;
-    top:0; bottom:0;
-    margin:auto;
-    max-width:100%;
-    max-height:100%;
-    overflow:auto;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    margin: auto;
+    max-width: 100%;
+    max-height: 100%;
+    /*overflow: auto;*/
 }
+
 .timerWrapper {
     height: 90vh;
     visibility: hidden;
 }
+
 .timerCard {
-    height: 20vh;
+    height: 23vh !important;
+    position: relative;
+    top: 50%;
+    transform: translateY(-50%);
 }
+
 .timerSpan {
     font-size: 3.5rem;
     text-align: center;
     position: relative;
     top: 50%;
     transform: translateY(-50%);
+    min-height: 13vh;
 }
+
+.timerSpan.truncate {}
+
 .cell {
     height: 10%;
     width: 10%;
     display: inline-block;
     background-color: white;
 }
+
 .cellText {
     font-size: 2rem;
     position: relative;
@@ -67,46 +86,58 @@ div {
     transform: translateY(-50%);
     text-align: center;
 }
+
 h1, h5 {
     margin: 0;
     user-select: none;
     font-family: 'Raleway';
     font-weight: 500;
 }
+
 h1 {
     font-weight: 300;
 }
+
 .title {
     position: relative;
     top: 50%;
     transform: translateY(-50%);
 }
+
 .canvas {
     position: absolute;
     pointer-events: none;
 }
+
 .buttonContainer {
     position: absolute;
     top: 50%;
     right: 4%;
     transform: translateY(-50%);
 }
+
 .wordsArrContainer > h5 {
     margin-bottom: 2rem;
 }
+
 .wordsWrapper, .statsWrapper {
     padding-top: 5%;
 }
 
-.wordsCard, .timerCard {
-    width: 100%;
-    border-radius: 20px;
-    position: relative;
-    top: 50%;
-    transform: translateY(-50%);
+.wordsCard {
+    visibility: hidden;
 }
 
-.wordsArrContainer h5:first-child {
+.wordsCard, .timerCard {
+    width: 100%;
+    /* height: 50%; */
+    border-radius: 20px;
+    /* position: relative; */
+    /* top: 50%; */
+    /* transform: translateY(-50%); */
+}
+
+.wordsArrContainer h5:nth-child(1) {
     padding-top: 2rem;
 }
 
@@ -120,7 +151,7 @@ h1 {
 }
 
 .shakeAnimation {
-    animation: shake 0.82s cubic-bezier(.36,.07,.19,.97) both;
+    animation: shake 0.82s cubic-bezier(.36, .07, .19, .97) both;
     transform: translate3d(0, 0, 0);
     backface-visibility: hidden;
     perspective: 1000px;
@@ -128,19 +159,19 @@ h1 {
 
 @keyframes shake {
     10%, 90% {
-      transform: translate3d(-0.25px, 0, 0);
+        transform: translate3d(-0.25px, 0, 0);
     }
-    
+
     20%, 80% {
-      transform: translate3d(1px, 0, 0);
+        transform: translate3d(1px, 0, 0);
     }
-  
+
     30%, 50%, 70% {
-      transform: translate3d(-2px, 0, 0);
+        transform: translate3d(-2px, 0, 0);
     }
-  
+
     40%, 60% {
-      transform: translate3d(2px, 0, 0);
+        transform: translate3d(2px, 0, 0);
     }
 }
 
@@ -155,3 +186,86 @@ h1 {
     text-align: center;
 }
 
+@media only screen and (min-width: 600px) {
+    .wordsCard {
+        height: 114%;
+    }
+
+    .word:nth-of-type(1) {
+        margin-top: 30px;
+    }
+
+    .word {
+        font-size: 24px;
+    }
+
+}
+
+@media only screen and (min-width: 600px) and (max-width: 750px) {
+    .word {
+        font-size: 18px
+    }
+
+    .timerSpan {
+        font-size: 3.0rem;
+    }
+}
+
+@media only screen and (max-width: 600px) {
+    .wordsCard {
+        height: 100%;
+    }
+
+    .timerSpan {
+        font-size: 2.0rem;
+    }
+
+    .timerCard {
+        position: relative;
+        top: 80px;
+    }
+
+    .wordsArrContainer h5:nth-child(1), .wordsArrContainer h5:nth-child(2), .wordsArrContainer h5:nth-child(3) {
+        padding-top: 1.5rem;
+    }
+
+    .boardContainer {
+        margin-top: 10px;
+    }
+
+    .wordsWrapper {
+        height: 220px;
+    }
+
+    .word:nth-of-type(1) {
+        margin-top: 0;
+    }
+}
+
+@media only screen and (max-width: 500px) {
+    .timerSpan {
+        font-size: 1.5rem;
+    }
+}
+
+@media only screen and (max-width: 800px) {
+    .title {
+        position: relative;
+        left: -86px;
+        font-size: 2.2rem;
+    }
+
+    /*.boardContainer {*/
+        /*height: 80vw;*/
+        /*width: 80vw;*/
+    /*}*/
+}
+
+@media only screen and (min-width: 800px) {
+    .timerCard {
+        min-height: 150px;
+    }
+}
+/*@media only screen and (min-width: 600px) {*/
+/**/
+/*}*/

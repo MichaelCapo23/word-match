@@ -120,7 +120,7 @@ function createDomBoard(board) {
         row.forEach((value, x) => {
             const cell = $('<div>', {
                 'class': `${'' + y + x} cell`,
-                // style: "min-width: 50px; min-height: 50px;"
+                style: "min-width: 27px; min-height: 27px;"
             }).append($('<h5>', {
                 'class': 'cellText'
             }));

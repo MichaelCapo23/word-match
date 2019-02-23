@@ -35,8 +35,8 @@ div {
 }
 
 .boardContainer {
-    height: 80vh;
-    width: 80vh;
+    height: 80%;
+    width: 80%;
     font-size: 0;
     position: absolute;
     left: 0;

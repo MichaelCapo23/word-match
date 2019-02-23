@@ -30,7 +30,6 @@ div {
 
 .containerWrapper {
     height: 90vh;
-    /*height: 100px*/
     position: relative;
 }
 
@@ -46,7 +45,6 @@ div {
     margin: auto;
     max-width: 100%;
     max-height: 100%;
-    /*overflow: auto;*/
 }
 
 .timerWrapper {
@@ -130,11 +128,7 @@ h1 {
 
 .wordsCard, .timerCard {
     width: 100%;
-    /* height: 50%; */
     border-radius: 20px;
-    /* position: relative; */
-    /* top: 50%; */
-    /* transform: translateY(-50%); */
 }
 
 .wordsArrContainer h5:nth-child(1) {
@@ -254,18 +248,7 @@ h1 {
         left: -86px;
         font-size: 2.2rem;
     }
-
-    /*.boardContainer {*/
-        /*height: 80vw;*/
-        /*width: 80vw;*/
-    /*}*/
 }
-
-/*@media only screen and (min-width: 800px) {*/
-    /*.timerCard {*/
-        /*min-height: 150px;*/
-    /*}*/
-/*}*/
 
 @media only screen and (max-height: 250px) {
     .teal.lighten-3.timerCard {

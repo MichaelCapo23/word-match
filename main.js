@@ -53,6 +53,7 @@ function reset() {
     canvasSetup();
     stopCountdown();
     countdown(gameState.countdownTime);
+    gameState.wordsLeftToMatch = 10;
 }
 
 /**
@@ -342,6 +343,7 @@ function gameWon() {
     stopCountdown();
     stillChangeColor = true;
     changeBackgroundColor();
+    gameState.wordsLeftToMatch = 10;
 }
 
 /**

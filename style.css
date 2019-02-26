@@ -25,17 +25,20 @@ div {
 
 .wordsWrapper {
     height: 90vh;
+    /* min-height: 150px !important; */
     padding: 20%;
 }
 
 .containerWrapper {
     height: 90vh;
     position: relative;
+    margin-bottom: 5px;
+    min-height: 601px !important;
 }
 
 .boardContainer {
-    height: 80%;
-    width: 80%;
+    height: 90%;
+    width: 90%;
     font-size: 0;
     position: absolute;
     left: 0;
@@ -45,6 +48,8 @@ div {
     margin: auto;
     max-width: 100%;
     max-height: 100%;
+    /* min-height: 550px; */
+    /* min-width: 550px; */
 }
 
 .timerWrapper {
@@ -183,6 +188,7 @@ h1 {
 @media only screen and (min-width: 600px) {
     .wordsCard {
         height: 114%;
+        min-height: 580px;
     }
 
     .word:nth-of-type(1) {
@@ -190,7 +196,7 @@ h1 {
     }
 
     .word {
-        font-size: 24px;
+        font-size: 22px;
     }
 
 }
@@ -211,12 +217,14 @@ h1 {
     }
 
     .timerSpan {
-        font-size: 2.0rem;
+        /* display: block; */
+        font-size: 5rem;
     }
 
     .timerCard {
         position: relative;
         top: 80px;
+        background-color: white !important;
     }
 
     .wordsArrContainer h5:nth-child(1), .wordsArrContainer h5:nth-child(2), .wordsArrContainer h5:nth-child(3) {
@@ -225,6 +233,7 @@ h1 {
 
     .boardContainer {
         margin-top: 10px;
+        display: block;
     }
 
     .wordsWrapper {
@@ -238,7 +247,7 @@ h1 {
 
 @media only screen and (max-width: 500px) {
     .timerSpan {
-        font-size: 1.5rem;
+        font-size: 5.0rem;
     }
 }
 
@@ -253,5 +262,12 @@ h1 {
 @media only screen and (max-height: 250px) {
     .teal.lighten-3.timerCard {
         background-color: white !important;
+    }
+}
+
+@media only screen and (max-height: 282px) {
+    .timerWrapper {
+        position: relative;
+        top: 80px;
     }
 }
